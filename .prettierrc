@@ -1,0 +1,25 @@
+{
+	"printWidth": 120,
+    "singleQuote": true,
+    "useTabs": true,
+    "tabWidth": 4,
+    "vueIndentScriptAndStyle": true,
+    "plugins": [
+        "prettier-plugin-organize-imports",
+        "prettier-plugin-tailwindcss"
+    ],
+	"overrides": [
+		{
+			"files": ["resources/apps/admin/**/*.{js,vue}"],
+			"options": {
+				"tailwindConfig": "./tailwind.admin.config.js"
+			}
+		},
+		{
+			"files": ["resources/apps/root/**/*.{js,vue}"],
+			"options": {
+				"tailwindConfig": "./tailwind.app.config.js"
+			}
+		}
+	]
+}

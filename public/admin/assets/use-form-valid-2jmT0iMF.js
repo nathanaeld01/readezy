@@ -1,0 +1,1 @@
+import{a as o}from"./app-WdeGMwe_.js";const m=(e,c)=>{const{isFieldDirty:s,isFieldValid:r}=c,a=o(()=>Object.keys(e).some(t=>s(t))),n=o(()=>Object.keys(e).every(t=>r(t)&&s(t)));return{canReset:a,canSubmit:n}};export{m as u};

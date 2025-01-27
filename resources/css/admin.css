@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 218 14% 84%;
+		--foreground: 219 14% 16%;
+		--muted: 218 0% 80%;
+		--muted-foreground: 218 0% 30%;
+		--popover: 218 14% 96%;
+		--popover-foreground: 219 14% 19%;
+		--card: 218 14% 91%;
+		--card-foreground: 219 14% 24%;
+		--border: 218 0% 69%;
+		--input: 218 0% 92%;
+		--primary: 240 89% 65%;
+		--primary-foreground: 0 0% 100%;
+		--secondary: 220 12.68% 13.92%;
+		--secondary-foreground: 220 3% 85%;
+		--accent: 218 14% 69%;
+		--accent-foreground: 218 14% 9%;
+		--destructive: 10 85% 46%;
+		--destructive-foreground: 0 0% 100%;
+
+		--info: 203 90% 53%;
+		--success: 130 48% 49%;
+		--warning: 43 81% 56%;
+		--error: 0 80% 62%;
+
+		--ring: 240 89% 65%;
+	}
+
+	:root.dark {
+		--background: 218 14% 16%;
+		--foreground: 219 14% 89%;
+		--muted: 218 12% 20%;
+		--muted-foreground: 218 12% 70%;
+		--popover: 218 14% 13%;
+		--popover-foreground: 219 14% 81%;
+		--card: 218 14% 14%;
+		--card-foreground: 219 14% 76%;
+		--border: 218 4% 21%;
+		--input: 222 13% 12%;
+		--primary: 240 89% 65%;
+		--primary-foreground: 0 0% 100%;
+		--secondary: 220 13% 86%;
+		--secondary-foreground: 220 13% 26%;
+		--accent: 218 14% 31%;
+		--accent-foreground: 218 14% 91%;
+		--destructive: 10 85% 46%;
+		--destructive-foreground: 0 0% 100%;
+
+		--info: 203 90% 53%;
+		--success: 130 48% 49%;
+		--warning: 43 81% 56%;
+		--error: 0 80% 62%;
+
+		--ring: 240 89% 65%;
+	}
+
+	* {
+		@apply m-0 box-border p-0;
+	}
+
+	html,
+	body {
+		@apply size-full;
+	}
+
+	body {
+		@apply bg-background text-foreground;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-bold;
+	}
+
+	h1 {
+		@apply text-[2em];
+	}
+
+	h2 {
+		@apply text-[1.5em];
+	}
+
+	h3 {
+		@apply text-[1.17em];
+	}
+
+	h4 {
+		@apply text-[1em];
+	}
+
+	h5 {
+		@apply text-[.83em];
+	}
+
+	h6 {
+		@apply text-[.67em];
+	}
+}
+
+.wrapper {
+	@apply h-full min-h-screen lg:grid lg:grid-cols-[auto_1fr];
+}
+
+.layout {
+	@apply grid max-w-[100vw] grid-rows-[auto_1fr_auto] overflow-y-auto;
+}
+
+.create-grid {
+	@apply mx-auto grid max-w-6xl grid-rows-[auto_1fr] gap-8 lg:grid-cols-[16rem_auto] lg:grid-rows-[unset];
+}
