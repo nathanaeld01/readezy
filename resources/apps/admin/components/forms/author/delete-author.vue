@@ -4,7 +4,7 @@
 	import axios from 'axios';
 	import { computed, ref } from 'vue';
 
-	import { Button } from '../ui/button';
+	import { Button } from '../../ui/button';
 	import {
 		Dialog,
 		DialogContent,
@@ -13,8 +13,8 @@
 		DialogModal,
 		DialogTitle,
 		DialogTrigger,
-	} from '../ui/dialog';
-	import { toast } from '../ui/sonner';
+	} from '../../ui/dialog';
+	import { toast } from '../../ui/sonner';
 
 	const props = defineProps({
 		slug: { type: String, required: true },

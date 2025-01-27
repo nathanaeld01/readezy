@@ -1,6 +1,14 @@
 <script setup lang="ts">
-	import { Button } from '../ui/button';
-	import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetModal, SheetTitle, SheetTrigger } from '../ui/sheet';
+	import { Button } from '../../ui/button';
+	import {
+		Sheet,
+		SheetContent,
+		SheetFooter,
+		SheetHeader,
+		SheetModal,
+		SheetTitle,
+		SheetTrigger,
+	} from '../../ui/sheet';
 </script>
 
 <template>

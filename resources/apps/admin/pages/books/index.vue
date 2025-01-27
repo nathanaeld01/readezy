@@ -1,7 +1,7 @@
 <script setup>
 	import { Head, Link, usePage } from '@inertiajs/vue3';
 
-	import CreateBook from '@/admin/components/forms/create-book.vue';
+	import { CreateBookForm } from '@/admin/components/forms/book';
 	import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/admin/components/ui/card';
 	import { Pagination } from '@/admin/components/ui/pagination';
 	import { Table, TableBody, TableCell, TableHead, TableRow, TableTitle } from '@/admin/components/ui/table';
@@ -69,7 +69,7 @@
 			</CardContent>
 			<CardFooter class="justify-between">
 				<Pagination :default-page="current_page" :total="last_page" />
-				<CreateBook />
+				<CreateBookForm />
 			</CardFooter>
 		</Card>
 	</AppLayout>

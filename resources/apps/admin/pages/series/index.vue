@@ -1,7 +1,7 @@
 <script setup>
 	import { Head, Link, usePage } from '@inertiajs/vue3';
 
-	import CreateSeries from '@/admin/components/forms/create-series.vue';
+	import { CreateSeriesForm } from '@/admin/components/forms/series';
 	import { Button } from '@/admin/components/ui/button';
 	import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/admin/components/ui/card';
 	import { Input } from '@/admin/components/ui/input';
@@ -55,7 +55,7 @@
 			</CardContent>
 			<CardFooter class="items-center justify-between">
 				<Pagination :default-page="current_page" :total="last_page" />
-				<CreateSeries />
+				<CreateSeriesForm />
 			</CardFooter>
 		</Card>
 	</AppLayout>

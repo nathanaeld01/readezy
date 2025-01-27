@@ -2,11 +2,11 @@
 	import { useForm } from 'vee-validate';
 
 	import { CreateAuthor, createAuthorSchema } from '@/js/lib/validators';
-	import { Button } from '../ui/button';
-	import { Dropzone } from '../ui/dropzone';
-	import { FormControl, FormField, FormItem, FormLabel } from '../ui/form';
-	import { useFormStates } from '../ui/form/use-form-valid';
-	import { Input, Textarea } from '../ui/input';
+	import { Button } from '../../ui/button';
+	import { Dropzone } from '../../ui/dropzone';
+	import { FormControl, FormField, FormItem, FormLabel } from '../../ui/form';
+	import { useFormStates } from '../../ui/form/use-form-valid';
+	import { Input, Textarea } from '../../ui/input';
 	import {
 		Sheet,
 		SheetContent,
@@ -16,9 +16,9 @@
 		SheetModal,
 		SheetTitle,
 		SheetTrigger,
-	} from '../ui/sheet';
+	} from '../../ui/sheet';
 
-	const { handleSubmit, handleReset, values, isFieldDirty, isFieldValid, isSubmitting } = useForm<CreateAuthor>({
+	const { handleSubmit, handleReset, meta, isSubmitting } = useForm<CreateAuthor>({
 		validationSchema: createAuthorSchema,
 		initialValues: {
 			image_url: undefined,
@@ -27,10 +27,7 @@
 		},
 	});
 
-	const { canReset, canSubmit } = useFormStates<CreateAuthor>(values, {
-		isFieldDirty,
-		isFieldValid,
-	});
+	const { canReset, canSubmit } = useFormStates(meta);
 
 	const createAuthor = handleSubmit(async (data) => {
 		console.log(data);

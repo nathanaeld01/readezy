@@ -1,7 +1,7 @@
 <script setup>
 	import { Head, Link, usePage } from '@inertiajs/vue3';
 
-	import CreateGenre from '@/admin/components/forms/create-genre.vue';
+	import { CreateGenreForm } from '@/admin/components/forms/genre';
 	import { Button } from '@/admin/components/ui/button';
 	import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/admin/components/ui/card';
 	import { Table, TableBody, TableCell, TableHead, TableRow, TableTitle } from '@/admin/components/ui/table';
@@ -45,7 +45,7 @@
 				</Table>
 			</CardContent>
 			<CardFooter class="justify-end">
-				<CreateGenre />
+				<CreateGenreForm />
 			</CardFooter>
 		</Card>
 	</AppLayout>

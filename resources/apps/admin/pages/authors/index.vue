@@ -1,9 +1,7 @@
 <script setup>
 	import { Head, Link, usePage } from '@inertiajs/vue3';
 
-	import CreateAuthor from '@/admin/components/forms/create-author.vue';
-	import DeleteAuthor from '@/admin/components/forms/delete-author.vue';
-	import SearchAuthor from '@/admin/components/search-author.vue';
+	import { CreateAuthorForm, DeleteAuthorForm } from '@/admin/components/forms/author';
 	import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/admin/components/ui/card';
 	import { Pagination } from '@/admin/components/ui/pagination';
 	import { Table, TableBody, TableCell, TableHead, TableRow, TableTitle } from '@/admin/components/ui/table';
@@ -18,7 +16,6 @@
 		<Card>
 			<CardHeader class="grid grid-cols-[1fr_25%] items-center">
 				<CardTitle>View Authors</CardTitle>
-				<SearchAuthor />
 			</CardHeader>
 			<CardContent class="authors-list">
 				<Table>
@@ -57,7 +54,7 @@
 								>
 									<i class="ri-pencil-line" />
 								</Link>
-								<DeleteAuthor :slug="author.slug" />
+								<DeleteAuthorForm :slug="author.slug" />
 							</TableCell>
 						</TableRow>
 					</TableBody>
@@ -65,7 +62,7 @@
 			</CardContent>
 			<CardFooter class="items-center justify-between">
 				<Pagination :default-page="current_page" :total="last_page" />
-				<CreateAuthor />
+				<CreateAuthorForm />
 			</CardFooter>
 		</Card>
 	</AppLayout>
