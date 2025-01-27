@@ -2,7 +2,8 @@
 	import { router } from '@inertiajs/vue3';
 	import { watchDebounced } from '@vueuse/core';
 	import { inject, ref } from 'vue';
-	import { Input } from './ui/input';
+
+	import { Input } from '../../ui/input';
 
 	const route = inject('route');
 

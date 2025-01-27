@@ -1,7 +1,7 @@
 <script setup>
 	import { Head, Link, usePage } from '@inertiajs/vue3';
 
-	import { CreateAuthorForm, DeleteAuthorForm } from '@/admin/components/forms/author';
+	import { CreateAuthorForm, DeleteAuthorForm, SearchAuthorForm } from '@/admin/components/forms/author';
 	import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/admin/components/ui/card';
 	import { Pagination } from '@/admin/components/ui/pagination';
 	import { Table, TableBody, TableCell, TableHead, TableRow, TableTitle } from '@/admin/components/ui/table';
@@ -16,6 +16,7 @@
 		<Card>
 			<CardHeader class="grid grid-cols-[1fr_25%] items-center">
 				<CardTitle>View Authors</CardTitle>
+				<SearchAuthorForm />
 			</CardHeader>
 			<CardContent class="authors-list">
 				<Table>
