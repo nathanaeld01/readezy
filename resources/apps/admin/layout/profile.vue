@@ -16,8 +16,8 @@
 	<div class="sticky top-8 h-fit space-y-4">
 		<Card>
 			<CardContent class="flex justify-center py-6">
-				<div class="flex size-20 items-center justify-center overflow-hidden rounded-full bg-muted">
-					<img v-if="avatar" :src="avatar" class="size-20 rounded-full" />
+				<div class="flex size-24 items-center justify-center overflow-hidden rounded-full bg-muted">
+					<img v-if="avatar" :src="avatar" class="size-full rounded-full" />
 					<i v-else class="ri-user-line text-3xl text-foreground/60"></i>
 				</div>
 			</CardContent>

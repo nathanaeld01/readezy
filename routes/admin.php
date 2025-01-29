@@ -72,7 +72,7 @@ Route::domain('admin.' . config('app.url'))->name('admin.')->group(function () {
 
 			// Profile API Operations
 			Route::prefix('profile')->group(function () {
-				Route::put('/update-information', [AuthController::class, 'update']);
+				Route::patch('/update-information', [AuthController::class, 'update']);
 				Route::patch('/update-password', [PasswordController::class, 'update']);
 			});
 

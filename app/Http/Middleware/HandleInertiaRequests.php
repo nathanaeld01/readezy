@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Actions\Cloudinary;
 use Cjmellor\BrowserSessions\Facades\BrowserSessions;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -32,15 +33,20 @@ class HandleInertiaRequests extends Middleware {
 	 * @return array<string, mixed>
 	 */
 	public function share(Request $request): array {
-		$user = $request->user() ? $request->user()->only('name', 'email', 'avatar') : null;
-		$roles = $request->user() ? $request->user()->roles->pluck('name') : [];
+		$auth = $request->user();
 
-		$sessions = $request->user() ? BrowserSessions::sessions() : [];
+		$user = $auth ? $auth->only('name', 'email', 'avatar') : null;
+		$roles = $auth ? $auth->roles->pluck('name') : null;
+		$sessions = $auth ? BrowserSessions::sessions() : [];
+
+		if (isset($user['avatar'])) {
+			$user['avatar'] = Cloudinary::image($user['avatar'], 'c_fill,g_face,w_100,h_100');
+		}
 
 		return [
 			...parent::share($request),
 			'auth' => compact('user', 'roles'),
-			'ziggy' => fn() => [
+			'ziggy' => [
 				'location' => $request->url(),
 			],
 			'sessions' => $sessions,

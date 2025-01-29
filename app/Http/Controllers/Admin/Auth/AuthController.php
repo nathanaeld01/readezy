@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
+use App\Actions\Cloudinary;
+use App\Actions\FileToUri;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\UpdateUserRequest;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,17 +44,37 @@ class AuthController extends Controller {
 		return redirect('/');
 	}
 
-	public function update(UpdateUserRequest $request) {
+	public function update(UpdateUserRequest $request): JsonResponse {
 		$data = $request->validated();
 
 		if (empty($data)) {
 			return response()->json(['message' => 'No data provided'], 422);
 		}
 
-		if ($request->user()->update($data)) {
-			return response()->json(['message' => 'User updated successfully']);
-		}
+		try {
+			$user = $request->user();
 
-		return response()->json(['message' => 'Failed to update user'], 500);
+			if ($request->hasFile('avatar')) {
+				$uploadOptions = ['folder' => 'avatars', 'transformation' => 'avatar'];
+
+				if (!empty($user->avatar)) {
+					$uploadOptions['public_id'] = Cloudinary::public_id($user->avatar);
+				}
+
+				$data['avatar'] = Cloudinary::upload(
+					FileToUri::convert($request->file('avatar')),
+					$uploadOptions
+				);
+			}
+
+			$user->fill($data)->save();
+
+			return response()->json(['message' => 'User updated successfully']);
+		} catch (\Exception $e) {
+			return response()->json(
+				['message' => 'Failed to update user', 'error' => config('app.debug') ? $e->getMessage() : null],
+				500
+			);
+		}
 	}
 }

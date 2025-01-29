@@ -1,7 +1,7 @@
 <script setup>
 	import { router, usePage } from '@inertiajs/vue3';
 	import { useForm } from 'vee-validate';
-	import { computed, toRef } from 'vue';
+	import { computed } from 'vue';
 
 	import { updateInformationSchema } from '@/js/validators/profile';
 	import { useMutation } from '@tanstack/vue-query';
@@ -15,10 +15,10 @@
 
 	const { name, email } = usePage().props.auth.user || {};
 
-	const { handleSubmit, resetForm, meta, isSubmitting } = useForm({
+	const { handleSubmit, resetForm, meta, isSubmitting, isFieldDirty } = useForm({
 		validationSchema: updateInformationSchema,
 		initialValues: {
-			avatar: '',
+			avatar: null,
 			name,
 			email,
 		},
@@ -28,14 +28,24 @@
 
 	const { mutateAsync, error, status } = useMutation({
 		mutationKey: ['update-information'],
-		mutationFn: (values) => axios.put('/api/profile/update-information', values),
+		mutationFn: (values) => {
+			const formData = new FormData();
+			formData.append('_method', 'PATCH');
+			Object.entries(values).forEach(([key, value]) => {
+				if (value) {
+					formData.append(key, value);
+				}
+			});
+
+			console.log(formData);
+
+			return axios.postForm('/api/profile/update-information', formData);
+		},
 		onSuccess: () => router.reload({ only: ['auth.user'] }),
 	});
 
 	const updateInformation = handleSubmit((values) => {
-		const dirtyFields = Object.fromEntries(
-			Object.entries(values).filter(([key, value]) => value !== toRef({ name, email }).value[key]),
-		);
+		const dirtyFields = Object.fromEntries(Object.entries(values).filter(([key, _]) => isFieldDirty(key)));
 
 		toast.promise(mutateAsync(dirtyFields), {
 			loading: 'Updating your information...',
@@ -54,11 +64,11 @@
 <template>
 	<CardContent class="max-w-xl space-y-4 p-6">
 		<form id="update-information" class="form" @submit.prevent="updateInformation">
-			<FormField v-slot="{ componentField }" name="avatar">
+			<FormField v-slot="{ handleChange }" name="avatar">
 				<FormItem>
 					<FormLabel>Avatar</FormLabel>
 					<FormControl>
-						<Input v-bind="componentField" type="file" accept="image/*" />
+						<Input type="file" accept="image/*" @change="handleChange" />
 					</FormControl>
 				</FormItem>
 			</FormField>
