@@ -11,7 +11,7 @@ import tailwindNesting from 'tailwindcss/nesting';
 export default defineConfig({
 	plugins: [
 		laravel({
-			buildDirectory: 'admin',
+			buildDirectory: 'build/admin',
 			ssr: ['resources/apps/admin/ssr.js'],
 			input: ['resources/apps/admin/app.js'],
 			refresh: {
