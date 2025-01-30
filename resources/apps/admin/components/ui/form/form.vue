@@ -22,7 +22,9 @@
 	<slot v-bind="{ onSubmit, canReset, canSubmit, ...formProps }" />
 </template>
 
-<style lang="postcss">
+<style>
+	@reference '../../../../../css/admin.css';
+
 	.form {
 		@apply grid gap-4;
 
@@ -35,7 +37,7 @@
 		@apply flex flex-col gap-2.5;
 
 		.form-label {
-			@apply text-sm/none text-foreground;
+			@apply text-foreground text-sm/none;
 		}
 
 		&.form-error {

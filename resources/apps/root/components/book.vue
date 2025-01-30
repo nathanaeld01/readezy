@@ -78,7 +78,7 @@
         }
 
         .book-layer {
-            @apply absolute top-0 left-0 z-[1] flex size-full bg-coffee-800/95 text-white text-xs tracking-widest font-semibold items-center justify-center opacity-0 transition-opacity duration-300 uppercase;
+            @apply absolute top-0 left-0 z-1 flex size-full bg-coffee-800/95 text-white text-xs tracking-widest font-semibold items-center justify-center opacity-0 transition-opacity duration-300 uppercase;
         }
     }
 </style>

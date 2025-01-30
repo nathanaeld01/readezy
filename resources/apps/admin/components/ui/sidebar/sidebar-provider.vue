@@ -40,7 +40,7 @@
 
 <style lang="postcss">
 	.sidebar {
-		@apply fixed left-0 top-0 z-50 size-full max-w-75 overflow-hidden border-r border-border bg-card transition-[max-width] duration-200 lg:relative;
+		@apply border-border bg-card fixed top-0 left-0 z-50 size-full max-w-75 overflow-hidden border-r transition-[max-width] duration-200 lg:relative;
 
 		&.collapsed {
 			@apply max-w-0;
@@ -60,14 +60,14 @@
 	}
 
 	.sidebar-overlay {
-		@apply fixed left-0 top-0 z-[49] size-full bg-black/50;
+		@apply fixed top-0 left-0 z-49 size-full bg-black/50;
 	}
 
 	.sidebar-group {
 		@apply relative w-full min-w-0 p-2;
 
 		.sidebar-group-title {
-			@apply flex h-8 items-center rounded-md px-2 text-sm font-medium text-foreground/70 outline-none ring-ring focus-visible:ring-2;
+			@apply text-foreground/70 ring-ring flex h-8 items-center rounded-md px-2 text-sm font-medium outline-hidden focus-visible:ring-2;
 		}
 
 		.sidebar-group-content {
@@ -83,7 +83,7 @@
 		.sidebar-menu-link,
 		.sidebar-menu-button,
 		.sidebar-submenu-link {
-			@apply flex h-8 select-none items-center rounded-md px-2.5 py-2 text-sm text-foreground transition-[background,color] duration-200 hover:text-accent-foreground;
+			@apply text-foreground hover:text-accent-foreground flex h-8 items-center rounded-md px-2.5 py-2 text-sm transition-[background,color] duration-200 select-none;
 		}
 
 		.sidebar-menu-link,
@@ -108,11 +108,11 @@
 		}
 
 		.sidebar-menu-title {
-			@apply flex h-8 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-foreground;
+			@apply text-foreground flex h-8 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm;
 		}
 
 		.sidebar-submenu {
-			@apply ml-4 flex min-w-0 translate-x-px flex-col gap-1 border-l border-border px-2.5 pt-2;
+			@apply border-border ml-4 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 pt-2;
 		}
 	}
 
@@ -120,7 +120,7 @@
 	.sidebar-menu-button,
 	.sidebar-submenu-link {
 		&.active {
-			@apply font-medium text-accent-foreground;
+			@apply text-accent-foreground font-medium;
 		}
 	}
 
@@ -138,6 +138,6 @@
 	}
 
 	.sidebar-menu-item:has(.sidebar-submenu a.active) .sidebar-menu-title {
-		@apply bg-accent font-medium text-accent-foreground;
+		@apply bg-accent text-accent-foreground font-medium;
 	}
 </style>

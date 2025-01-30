@@ -3,10 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import path from 'path';
 import { defineConfig } from 'vite';
 
-import autoprefixer from 'autoprefixer';
-import noDuplicate from 'postcss-combine-duplicated-selectors';
-import tailwind from 'tailwindcss';
-import tailwindNesting from 'tailwindcss/nesting';
+import tailwind from '@tailwindcss/vite';
 
 export default defineConfig({
 	plugins: [
@@ -26,17 +23,11 @@ export default defineConfig({
 				},
 			},
 		}),
+		tailwind(),
 	],
 	css: {
 		postcss: {
-			plugins: [
-				tailwind({
-					config: 'tailwind.web.config.js',
-				}),
-				autoprefixer,
-				tailwindNesting,
-				noDuplicate,
-			],
+			config: path.resolve(__dirname, 'postcss.config.js'),
 		},
 	},
 	resolve: {

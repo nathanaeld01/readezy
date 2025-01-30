@@ -1,12 +1,8 @@
+import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
 import path from 'path';
 import { defineConfig } from 'vite';
-
-import autoprefixer from 'autoprefixer';
-import noDuplicate from 'postcss-combine-duplicated-selectors';
-import tailwindcss from 'tailwindcss';
-import tailwindNesting from 'tailwindcss/nesting';
 
 export default defineConfig({
 	plugins: [
@@ -26,17 +22,11 @@ export default defineConfig({
 				},
 			},
 		}),
+		tailwindcss(),
 	],
 	css: {
 		postcss: {
-			plugins: [
-				tailwindcss({
-					config: 'tailwind.admin.config.js',
-				}),
-				autoprefixer,
-				tailwindNesting,
-				noDuplicate,
-			],
+			config: path.resolve(__dirname, 'postcss.config.js'),
 		},
 	},
 	resolve: {

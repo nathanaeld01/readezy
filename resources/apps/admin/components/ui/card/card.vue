@@ -18,7 +18,7 @@
 <template>
 	<div
 		:class="
-			cn('card h-fit overflow-hidden rounded-lg border border-border bg-card text-card-foreground', classProp)
+			cn('card border-border bg-card text-card-foreground h-fit overflow-hidden rounded-lg border', classProp)
 		"
 		v-bind="props"
 	>

@@ -23,7 +23,7 @@
     }
 
     .booklet::after {
-        @apply absolute inset-0 left-[10px] z-[1] content-[''] w-[3px] bg-black/10 book-inset-shadow pointer-events-none;
+        @apply absolute inset-0 left-[10px] z-1 content-[''] w-[3px] bg-black/10 book-inset-shadow pointer-events-none;
     }
 
     .booklet > img {

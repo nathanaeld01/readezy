@@ -42,7 +42,7 @@
 
 <style lang="postcss">
 	.btn {
-		@apply inline-flex h-9 items-center justify-center gap-2.5 rounded-md px-3 py-1.5 text-sm font-medium leading-none transition-[background,color,border] duration-200 disabled:cursor-not-allowed disabled:text-muted-foreground disabled:opacity-60;
+		@apply disabled:text-muted-foreground inline-flex h-9 items-center justify-center gap-2.5 rounded-md px-3 py-1.5 text-sm leading-none font-medium transition-[background,color,border] duration-200 disabled:cursor-not-allowed disabled:opacity-60;
 
 		&.btn-primary {
 			@apply bg-primary text-primary-foreground hover:bg-primary/80 disabled:hover:bg-primary;
@@ -53,11 +53,11 @@
 		}
 
 		&.btn-tertiary {
-			@apply border border-accent bg-muted text-muted-foreground hover:bg-muted/80 disabled:hover:bg-muted;
+			@apply border-accent bg-muted text-muted-foreground hover:bg-muted/80 disabled:hover:bg-muted border;
 		}
 
 		&.btn-ghost {
-			@apply bg-transparent text-foreground hover:bg-accent/80 disabled:hover:bg-transparent;
+			@apply text-foreground hover:bg-accent/80 bg-transparent disabled:hover:bg-transparent;
 		}
 
 		&.btn-danger {

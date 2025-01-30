@@ -56,7 +56,7 @@
     }
 
     .header::after {
-        @apply absolute bottom-0 inset-x-0 z-[1] content-[''] container h-px bg-alabaster-400 transition-[max-width] duration-500 pointer-events-none;
+        @apply absolute bottom-0 inset-x-0 z-1 content-[''] container h-px bg-alabaster-400 transition-[max-width] duration-500 pointer-events-none;
     }
 
     .header.scrolled::after {
