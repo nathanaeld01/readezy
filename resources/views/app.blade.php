@@ -13,7 +13,7 @@
         <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/apps/root/app.js', "resources/apps/root/pages/{$page['component']}.vue"], 'build/web')
+        @vite(['resources/apps/root/app.js', "resources/css/app.css", "resources/apps/root/pages/{$page['component']}.vue"], 'build/web')
         @inertiaHead
     </head>
     <body id="app" data-page="{{ json_encode($page); }}"></body>

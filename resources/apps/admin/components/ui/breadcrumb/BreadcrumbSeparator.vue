@@ -5,7 +5,7 @@
 </script>
 
 <template>
-	<li class="breadcrumb-separator" :class="props.class" role="presentation" aria-hidden="true">
+	<li :class="('text-lg leading-none', props.class)" role="presentation" aria-hidden="true">
 		<slot>
 			<i class="ri-arrow-right-s-line" />
 		</slot>

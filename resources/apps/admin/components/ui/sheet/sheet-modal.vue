@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 	import { DialogContent, DialogOverlay, DialogPortal, useForwardPropsEmits } from 'radix-vue';
 
 	import { cn } from '@/js/lib/utils';
@@ -36,7 +36,9 @@
 
 <template>
 	<DialogPortal>
-		<DialogOverlay class="sheet-overlay" />
+		<DialogOverlay
+			class="fixed inset-0 z-50 bg-black/80 duration-400 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0"
+		/>
 		<DialogContent :class="cn(sheetVariants({ side }), classes)" v-bind="{ ...forwarded, ...$attrs }">
 			<slot />
 		</DialogContent>

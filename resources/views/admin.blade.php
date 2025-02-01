@@ -10,7 +10,7 @@
         <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/apps/admin/app.js', "resources/apps/admin/pages/{$page['component']}.vue"], 'build/admin')
+        @vite(['resources/apps/admin/app.js', "resources/css/admin.css", "resources/apps/admin/pages/{$page['component']}.vue"], 'build/admin')
         @inertiaHead
     </head>
     <body id="app" data-page="{{ json_encode($page); }}"></body>

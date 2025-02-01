@@ -1,5 +1,5 @@
 <template>
-	<div class="sidebar-group-content">
+	<div class="w-full">
 		<slot />
 	</div>
 </template>

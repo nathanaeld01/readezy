@@ -1,7 +1,8 @@
 <script setup>
-	import { Link } from "@inertiajs/vue3";
-	import clsx from "clsx";
-	import { buttonVariants } from "../button";
+	import { Link } from '@inertiajs/vue3';
+	import clsx from 'clsx';
+
+	import { buttonVariants } from '../button';
 
 	const props = defineProps({
 		href: { type: String, required: true },

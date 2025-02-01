@@ -10,16 +10,19 @@ export { default as SheetTitle } from './sheet-title.vue';
 export { default as SheetTrigger } from './sheet-trigger.vue';
 export { default as Sheet } from './sheet.vue';
 
-export const sheetVariants = cva('sheet', {
-	variants: {
-		side: {
-			top: 'sheet-top',
-			bottom: 'sheet-bottom',
-			left: 'sheet-left',
-			right: 'sheet-right',
+export const sheetVariants = cva(
+	'fixed z-50 grid grid-rows-[auto_1fr_auto] rounded-md border border-border bg-popover shadow-lg duration-400 data-[state=closed]:animate-out data-[state=open]:animate-in',
+	{
+		variants: {
+			side: {
+				top: 'inset-x-2.5 top-2.5 w-[calc(100%-1.25rem)] data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top',
+				bottom: 'inset-x-2.5 bottom-2.5 w-[calc(100%-1.25rem)] border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom',
+				left: 'inset-y-2.5 left-2.5 h-[calc(100%-1.25rem)] w-full max-w-sm border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left md:max-w-md',
+				right: 'inset-y-2.5 right-2.5 h-[calc(100%-1.25rem)] w-full max-w-sm data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right md:max-w-md',
+			},
+		},
+		defaultVariants: {
+			side: 'right',
 		},
 	},
-	defaultVariants: {
-		side: 'right',
-	},
-});
+);

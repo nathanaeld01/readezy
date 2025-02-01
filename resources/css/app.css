@@ -1,8 +1,123 @@
-@config "../../tailwind.web.config.js";
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind utilities;
-@tailwind components;
+@plugin '@tailwindcss/forms';
+@plugin '../js/animations';
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+
+  --color-*: initial;
+  --color-white: hsl(0, 0%, 100%);
+  --color-black: hsl(0, 0%, 0%);
+  --color-transparent: transparent;
+
+  --color-coffee-50: hsl(38, 33%, 95%);
+  --color-coffee-100: hsl(38, 31%, 88%);
+  --color-coffee-200: hsl(38, 31%, 77%);
+  --color-coffee-300: hsl(35, 31%, 64%);
+  --color-coffee-400: hsl(32, 31%, 53%);
+  --color-coffee-500: hsl(30, 30%, 47%);
+  --color-coffee-600: hsl(25, 31%, 40%);
+  --color-coffee-700: hsl(19, 30%, 33%);
+  --color-coffee-800: hsl(18, 25%, 29%);
+  --color-coffee-900: hsl(14, 24%, 26%);
+  --color-coffee-950: hsl(12, 28%, 14%);
+  --color-coffee: hsl(30, 30%, 47%);
+
+  --color-alabaster-50: hsl(50, 30%, 96%);
+  --color-alabaster-100: hsl(51, 32%, 91%);
+  --color-alabaster-200: hsl(52, 31%, 77%);
+  --color-alabaster-300: hsl(49, 31%, 65%);
+  --color-alabaster-400: hsl(46, 32%, 56%);
+  --color-alabaster-500: hsl(41, 31%, 50%);
+  --color-alabaster-600: hsl(36, 31%, 44%);
+  --color-alabaster-700: hsl(29, 30%, 37%);
+  --color-alabaster-800: hsl(27, 28%, 31%);
+  --color-alabaster-900: hsl(26, 26%, 26%);
+  --color-alabaster-950: hsl(25, 31%, 14%);
+  --color-alabaster: hsl(51, 32%, 91%);
+
+  --color-raisin-50: #f8f7f8;
+  --color-raisin-100: #f0eeee;
+  --color-raisin-200: #ded9da;
+  --color-raisin-300: #c1b8bb;
+  --color-raisin-400: #9f9196;
+  --color-raisin-500: #847379;
+  --color-raisin-600: #6c5d62;
+  --color-raisin-700: #584c50;
+  --color-raisin-800: #4b4144;
+  --color-raisin-900: #41393b;
+  --color-raisin-950: #231f20;
+
+  --color-gray-50: hsl(0, 0%, 96%);
+  --color-gray-100: hsl(0, 0%, 91%);
+  --color-gray-200: hsl(0, 0%, 82%);
+  --color-gray-300: hsl(0, 0%, 69%);
+  --color-gray-400: hsl(0, 0%, 53%);
+  --color-gray-500: hsl(0, 0%, 43%);
+  --color-gray-600: hsl(0, 0%, 36%);
+  --color-gray-700: hsl(0, 0%, 31%);
+  --color-gray-800: hsl(0, 0%, 27%);
+  --color-gray-900: hsl(0, 0%, 20%);
+  --color-gray-950: hsl(0, 0%, 15%);
+
+  --font-jost: Jost, sans-serif;
+  --font-cormorant: Cormorant Garamond, serif;
+
+  --shadow-book: -20px 20px 20px 0px #0000006b;
+  --shadow-book-inset: 1px 0 3px rgba(255, 255, 255, 0.1);
+
+  --aspect-book: 5 / 7.5;
+
+  --grid-template-columns-auto-fit: repeat(auto-fit, minmax(0, 1fr));
+
+  --grid-template-rows-auto-fit: repeat(auto-fit, minmax(0, 1fr));
+
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+
+  --transition-duration-400: 400ms;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 @layer base {
 	* {

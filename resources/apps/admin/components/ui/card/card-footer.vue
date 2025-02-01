@@ -1,7 +1,7 @@
-<script setup lang="ts">
+<script setup>
 	import { cn } from '@/js/lib/utils';
 
-	const { class: classProp, ...props } = defineProps({
+	const props = defineProps({
 		class: {
 			type: [String, null],
 			default: null,
@@ -10,7 +10,7 @@
 </script>
 
 <template>
-	<div :class="cn('card-footer flex border-t border-border px-4 py-2.5', classProp)" v-bind="props">
+	<div :class="cn('flex border-t border-border px-4 py-2.5', props.class)">
 		<slot />
 	</div>
 </template>

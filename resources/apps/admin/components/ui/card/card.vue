@@ -7,7 +7,7 @@
 <script setup>
 	import { cn } from '@/js/lib/utils';
 
-	const { class: classProp, ...props } = defineProps({
+	const props = defineProps({
 		class: {
 			type: [String, null],
 			default: null,
@@ -16,18 +16,7 @@
 </script>
 
 <template>
-	<div
-		:class="
-			cn('card border-border bg-card text-card-foreground h-fit overflow-hidden rounded-lg border', classProp)
-		"
-		v-bind="props"
-	>
+	<div :class="cn('h-fit overflow-hidden rounded-lg border border-border bg-card text-card-foreground', props.class)">
 		<slot />
 	</div>
 </template>
-
-<style lang="postcss">
-	.card .card-header input {
-		@apply w-full md:max-w-96;
-	}
-</style>

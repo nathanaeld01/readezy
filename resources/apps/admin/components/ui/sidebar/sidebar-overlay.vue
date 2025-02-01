@@ -5,5 +5,10 @@
 </script>
 
 <template>
-	<div v-if="isMobile && toggle" class="sidebar-overlay" role="button" @click="onToggle" />
+	<div
+		v-if="isMobile && toggle"
+		class="fixed top-0 left-0 z-49 size-full bg-black/50"
+		role="button"
+		@click="onToggle"
+	/>
 </template>

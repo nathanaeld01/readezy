@@ -12,13 +12,15 @@
 		{
 			"files": ["resources/apps/admin/**/*.{js,vue}"],
 			"options": {
-				"tailwindConfig": "./tailwind.admin.config.js"
+				"tailwindStylesheet": "./resources/css/admin.css",
+				"tailwindFunctions": ["clsx", "cva", "cn"]
 			}
 		},
 		{
 			"files": ["resources/apps/root/**/*.{js,vue}"],
 			"options": {
-				"tailwindConfig": "./tailwind.app.config.js"
+				"tailwindStylesheet": "./resources/css/root.css",
+				"tailwindFunctions": ["clsx", "cva", "cn"]
 			}
 		}
 	]

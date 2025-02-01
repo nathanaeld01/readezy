@@ -1,14 +1,14 @@
 <script setup>
-	defineProps({
+	const props = defineProps({
 		class: {
 			type: [String, null],
 			default: null,
 		},
-	})
+	});
 </script>
 
 <template>
-	<div class="card-content" :class>
+	<div :class="props.class">
 		<slot />
 	</div>
 </template>

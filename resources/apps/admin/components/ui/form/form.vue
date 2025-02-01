@@ -21,34 +21,3 @@
 <template>
 	<slot v-bind="{ onSubmit, canReset, canSubmit, ...formProps }" />
 </template>
-
-<style>
-	@reference '../../../../../css/admin.css';
-
-	.form {
-		@apply grid gap-4;
-
-		.form-item {
-			@apply flex flex-col gap-2;
-		}
-	}
-
-	.form-item {
-		@apply flex flex-col gap-2.5;
-
-		.form-label {
-			@apply text-foreground text-sm/none;
-		}
-
-		&.form-error {
-			.form-label {
-				@apply text-destructive;
-			}
-
-			.form-input,
-			.form-textarea {
-				@apply border-destructive;
-			}
-		}
-	}
-</style>
