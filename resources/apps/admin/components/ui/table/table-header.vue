@@ -7,7 +7,7 @@
 </script>
 
 <template>
-	<tbody :class="cn('[&_tr:last-child]:border-0', props.class)">
+	<thead :class="cn('[&_tr]:border-b', props.class)">
 		<slot />
-	</tbody>
+	</thead>
 </template>

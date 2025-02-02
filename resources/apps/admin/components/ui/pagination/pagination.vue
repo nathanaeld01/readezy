@@ -44,9 +44,3 @@
 		</PaginationList>
 	</PaginationRoot>
 </template>
-
-<style lang="postcss">
-	.pagination {
-		@apply flex gap-1;
-	}
-</style>
