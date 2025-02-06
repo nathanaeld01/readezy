@@ -1,7 +1,7 @@
 <script setup>
 	import { cn } from '@/lib/utils';
 	import { computed } from 'vue';
-	import TableCell from './TableCell.vue';
+	import TableCell from './table-cell.vue';
 	import TableRow from './table-row.vue';
 
 	const props = defineProps({
@@ -22,7 +22,7 @@
 			:class="cn('p-4 align-middle text-sm whitespace-nowrap text-foreground', props.class)"
 			v-bind="delegatedProps"
 		>
-			<div class="flex items-center justify-center py-10">
+			<div class="flex items-center justify-center py-8">
 				<slot />
 			</div>
 		</TableCell>

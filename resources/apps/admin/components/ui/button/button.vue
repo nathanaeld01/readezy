@@ -1,7 +1,14 @@
 <script setup>
+	import { cn } from '@/js/lib/utils';
 	import { buttonVariants } from '.';
 
-	const { variant, size, icon, ...props } = defineProps({
+	const {
+		variant,
+		size,
+		icon,
+		class: classProp,
+		...props
+	} = defineProps({
 		variant: {
 			type: String,
 			default: 'primary',
@@ -35,7 +42,7 @@
 </script>
 
 <template>
-	<button :class="buttonVariants({ variant, size, icon })" v-bind="props" @click="emit('click')">
+	<button :class="cn(buttonVariants({ variant, size, icon }), classProp)" v-bind="props" @click="emit('click')">
 		<slot />
 	</button>
 </template>

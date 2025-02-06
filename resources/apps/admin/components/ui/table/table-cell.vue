@@ -7,7 +7,7 @@
 </script>
 
 <template>
-	<td :class="cn('p-4 align-middle [&:has([role=checkbox])]:pr-0', props.class)">
+	<td :class="cn('px-4 py-2.5 align-middle', props.class)">
 		<slot />
 	</td>
 </template>
