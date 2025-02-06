@@ -1,78 +1,51 @@
 <script setup>
-	import { Head, Link, usePage } from '@inertiajs/vue3';
+	import { Head } from '@inertiajs/vue3';
+	import { ref, watch } from 'vue';
 
-	import { CreateAuthorForm, DeleteAuthorForm, SearchAuthorForm } from '@/admin/components/forms/author';
-	import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/admin/components/ui/card';
+	import { CreateAuthorForm, SearchAuthorForm } from '@/admin/components/forms/author';
+	import { AuthorsListTable } from '@/admin/components/tables';
+	import { Button } from '@/admin/components/ui/button';
 	import { Pagination } from '@/admin/components/ui/pagination';
-	import { Table, TableBody, TableCell, TableHead, TableRow, TableTitle } from '@/admin/components/ui/table';
 	import { AppLayout } from '@/admin/layout';
 
-	const { current_page, last_page, data } = usePage().props.authors;
+	const props = defineProps({
+		authors: { type: Object, required: true },
+		searchTerm: { type: String, required: false },
+		pagination: { type: Object, required: true },
+	});
+
+	const selectedAuthors = ref([]);
+
+	watch(selectedAuthors, (value) => console.log(value));
 </script>
 
 <template>
 	<Head title="View Authors" />
-	<AppLayout :links="[{ name: 'Authors' }]">
-		<Card>
-			<CardHeader class="grid grid-cols-[1fr_25%] items-center">
-				<CardTitle>View Authors</CardTitle>
-				<SearchAuthorForm />
-			</CardHeader>
-			<CardContent class="authors-list">
-				<Table>
-					<TableHead>
-						<TableRow>
-							<TableTitle class="w-16">S.No.</TableTitle>
-							<TableTitle class="w-28">Image</TableTitle>
-							<TableTitle align="left">Name</TableTitle>
-							<TableTitle class="w-24">Books</TableTitle>
-							<TableTitle class="w-24">Series</TableTitle>
-							<TableTitle class="w-40">Actions</TableTitle>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						<TableRow v-for="(author, index) in data" :key="author.slug">
-							<TableCell>{{ index + 1 }}</TableCell>
-							<TableCell>
-								<img :src="author.image_url" alt="Author Image" class="mx-auto size-10 rounded-full" />
-							</TableCell>
-							<TableCell align="left">
-								<Link
-									:href="`/authors/${author.slug}`"
-									class="underline underline-offset-4"
-									:title="author.title"
-								>
-									{{ author.title }}
-								</Link>
-							</TableCell>
-							<TableCell>{{ author.books_count }}</TableCell>
-							<TableCell>{{ author.series_count }}</TableCell>
-							<TableCell class="space-x-2">
-								<Link
-									:href="`/authors/${author.slug}/edit`"
-									class="btn btn-secondary btn-icon"
-									title="Edit Author"
-								>
-									<i class="ri-pencil-line" />
-								</Link>
-								<DeleteAuthorForm :slug="author.slug" />
-							</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
-			</CardContent>
-			<CardFooter class="items-center justify-between">
-				<Pagination :default-page="current_page" :total="last_page" />
-				<CreateAuthorForm />
-			</CardFooter>
-		</Card>
+	<AppLayout class="space-y-8" :links="[{ name: 'Authors' }]">
+		<div class="flex flex-col gap-2">
+			<h2 class="flex-1 text-2xl/none font-semibold">Authors</h2>
+			<p class="text-sm/none text-foreground/70">View and manage authors</p>
+		</div>
+		<div class="space-y-4">
+			<div class="flex items-center justify-between">
+				<SearchAuthorForm :value="props.searchTerm" class="max-w-75" />
+				<div class="flex gap-2">
+					<Button v-if="selectedAuthors.length" variant="danger">
+						<i class="ri-delete-bin-line"></i>
+						<span>Delete Author{{ selectedAuthors.length > 1 ? 's' : '' }}</span>
+						<span
+							class="flex size-5 items-center justify-center rounded-full bg-white/30 text-xs/none text-white"
+						>
+							{{ selectedAuthors.length }}
+						</span>
+					</Button>
+					<CreateAuthorForm />
+				</div>
+			</div>
+			<AuthorsListTable :data="props.authors" @update:row-selection="selectedAuthors = $event" />
+			<div class="flex items-center justify-between">
+				<Pagination :default-page="props.pagination.current_page" :total="props.pagination.total" />
+			</div>
+		</div>
 	</AppLayout>
 </template>
-
-<style lang="postcss">
-	.authors-list {
-		.author-title-center {
-			@apply text-center;
-		}
-	}
-</style>

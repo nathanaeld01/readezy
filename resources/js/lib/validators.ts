@@ -8,24 +8,15 @@ const login = z.object({
 });
 
 const createAuthor = z.object({
-	image_url: z.object(
-		{
-			url: z.string(),
-			name: z.string(),
-			size: z.string(),
-		},
-		{
-			required_error: 'Author image is required',
-			invalid_type_error: 'Author image must be a file',
-		},
-	),
+	image: z.instanceof(File, { message: 'Author image is required' }),
 	name: z
 		.string({ required_error: 'Author name is required' })
-		.min(1, { message: 'Author name must be at least 1 character.' }),
+		.min(2, 'Name must be at least 2 characters')
+		.max(50, 'Name must not exceed 50 characters'),
 	description: z
 		.string({ required_error: 'Author description is required' })
-		.min(75, { message: 'Author description must be at least 75 characters.' })
-		.max(500, { message: 'Author description must be at most 500 characters.' }),
+		.min(10, 'Description must be at least 10 characters')
+		.max(500, 'Description must not exceed 500 characters'),
 });
 
 const createSeries = z.object({

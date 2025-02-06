@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Constants;
+use App\Actions\Cloudinary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Author\StoreRequest;
 use App\Models\Author;
@@ -13,21 +13,21 @@ use Inertia\Inertia;
 class AuthorController extends Controller {
 	// View list of authors
 	public function index(Request $request) {
-		$query = Author::query()
+		$searchTerm = $request->search;
+
+		$authors = Author::query()
 			->select(['id', 'slug', 'title', 'image_url'])
-			->withCount(['books', 'series']);
+			->withCount(['books', 'series'])
+			->when($searchTerm, fn($q) => $q->search($searchTerm))
+			->paginate(10)
+			->withQueryString()
+			->through(fn($author) => tap($author, fn($a) => $a->image_url = Cloudinary::image($a->image_url, 'c_fill,g_face,w_100,h_100')));
 
-		if ($request->has('search')) {
-			$query->search($request->search);
-		}
-
-		$authors = $query->paginate(10)
-			->through(function ($author) {
-				$author->image_url = image_url($author->image_url, 'c_fill,g_face,w_100,h_100');
-				return $author;
-			});
-
-		return Inertia::render('authors/index', compact('authors'));
+		return Inertia::render('authors/index', [
+			'authors' => $authors->items(),
+			'searchTerm' => $searchTerm,
+			'pagination' => collect($authors)->except('data'),
+		]);
 	}
 
 	public function create() {
@@ -74,13 +74,13 @@ class AuthorController extends Controller {
 	}
 
 	public function store(StoreRequest $request) {
-		// if (!$request->user()) {
-		// 	return response()->json(['message' => 'You need to be logged in'], 401);
-		// }
+		if (!$request->user()) {
+			return response()->json(['message' => 'You need to be logged in'], 401);
+		}
 
-		// if (!$request->user()->hasRole('admin')) {
-		// 	return response()->json(['message' => 'You do not have permission to create an author'], 403);
-		// }
+		if (!$request->user()->hasRole('admin')) {
+			return response()->json(['message' => 'You do not have permission to create an author'], 403);
+		}
 
 		$request->validated();
 
@@ -88,10 +88,10 @@ class AuthorController extends Controller {
 		$authorData = [
 			'slug' => $slug,
 			'title' => $request->author_name,
-			'image_url' => image_upload($request->author_image, [
+			'image_url' => Cloudinary::upload($request->author_image, [
 				'public_id' => $slug,
 				'folder' => 'authors',
-				'transformation' => Constants::authorTransforms(),
+				'transformation' => 'author',
 			]),
 			'description' => $request->author_description,
 		];

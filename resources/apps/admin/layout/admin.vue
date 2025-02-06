@@ -1,5 +1,6 @@
 <script setup>
 	import { Toaster } from '@/admin/components/ui/sonner';
+	import { cn } from '@/js/lib/utils';
 	import { SidebarProvider } from '../components/ui/sidebar';
 	import Sidebar from './sidebar.vue';
 	import Topbar from './topbar.vue';
@@ -21,7 +22,7 @@
 		<Sidebar />
 		<div class="layout">
 			<Topbar :links="props.links" />
-			<main class="p-8" :class="props.class">
+			<main :class="cn('container mx-auto p-8', props.class)">
 				<slot />
 			</main>
 			<footer></footer>
