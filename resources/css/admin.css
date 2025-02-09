@@ -1,0 +1,274 @@
+@import 'tailwindcss';
+
+@source '../views/admin.blade.php';
+@source '../apps/admin/*';
+
+@plugin '@tailwindcss/forms';
+@plugin '../js/animations';
+
+@theme {
+	--breakpoint-*: initial;
+	--breakpoint-sm: 576px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 992px;
+	--breakpoint-xl: 1200px;
+	--breakpoint-xxl: 1400px;
+
+	--color-*: initial;
+	--color-white: hsl(0, 0%, 100%);
+	--color-black: hsl(0, 0%, 0%);
+	--color-transparent: transparent;
+
+	--color-primary: hsl(var(--primary));
+	--color-primary-foreground: hsl(var(--primary-foreground));
+
+	--color-secondary: hsl(var(--secondary));
+	--color-secondary-foreground: hsl(var(--secondary-foreground));
+
+	--color-border: hsl(var(--border));
+	--color-input: hsl(var(--input));
+	--color-ring: hsl(var(--ring));
+	--color-background: hsl(var(--background));
+	--color-foreground: hsl(var(--foreground));
+
+	--color-destructive: hsl(var(--destructive));
+	--color-destructive-foreground: hsl(var(--destructive-foreground));
+
+	--color-muted: hsl(var(--muted));
+	--color-muted-foreground: hsl(var(--muted-foreground));
+
+	--color-accent: hsl(var(--accent));
+	--color-accent-foreground: hsl(var(--accent-foreground));
+
+	--color-popover: hsl(var(--popover));
+	--color-popover-foreground: hsl(var(--popover-foreground));
+
+	--color-card: hsl(var(--card));
+	--color-card-foreground: hsl(var(--card-foreground));
+
+	--color-info: hsl(var(--info));
+	--color-success: hsl(var(--success));
+	--color-warning: hsl(var(--warning));
+	--color-error: hsl(var(--error));
+
+	--aspect-book: 5 / 7.5;
+
+	--grid-template-columns-auto-fit: repeat(auto-fit, minmax(0, 1fr));
+
+	--grid-template-rows-auto-fit: repeat(auto-fit, minmax(0, 1fr));
+
+	--transition-duration-400: 400ms;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+	:root {
+		--background: 218 14% 84%;
+		--foreground: 219 14% 16%;
+		--muted: 218 0% 80%;
+		--muted-foreground: 218 0% 30%;
+		--popover: 218 14% 96%;
+		--popover-foreground: 219 14% 19%;
+		--card: 218 14% 91%;
+		--card-foreground: 219 14% 24%;
+		--border: 218 0% 69%;
+		--input: 218 0% 92%;
+		--primary: 240 89% 65%;
+		--primary-foreground: 0 0% 100%;
+		--secondary: 220 12.68% 13.92%;
+		--secondary-foreground: 220 3% 85%;
+		--accent: 218 19% 75%;
+		--accent-foreground: 218 14% 9%;
+		--destructive: 10 85% 46%;
+		--destructive-foreground: 0 0% 100%;
+
+		--info: 203 90% 53%;
+		--success: 130 48% 49%;
+		--warning: 43 81% 56%;
+		--error: 0 80% 62%;
+
+		--ring: 240 89% 65%;
+	}
+
+	:root.dark {
+		--background: 218 14% 16%;
+		--foreground: 219 14% 89%;
+		--muted: 218 12% 20%;
+		--muted-foreground: 218 12% 70%;
+		--popover: 218 14% 13%;
+		--popover-foreground: 219 14% 81%;
+		--card: 218 14% 14%;
+		--card-foreground: 219 14% 76%;
+		--border: 218 4% 21%;
+		--input: 222 13% 12%;
+		--primary: 240 89% 65%;
+		--primary-foreground: 0 0% 100%;
+		--secondary: 220 13% 86%;
+		--secondary-foreground: 220 13% 26%;
+		--accent: 218 14% 31%;
+		--accent-foreground: 218 14% 91%;
+		--destructive: 10 85% 46%;
+		--destructive-foreground: 0 0% 100%;
+
+		--info: 203 90% 53%;
+		--success: 130 48% 49%;
+		--warning: 43 81% 56%;
+		--error: 0 80% 62%;
+
+		--ring: 240 89% 65%;
+	}
+
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentColor);
+	}
+
+	* {
+		@apply m-0 box-border p-0;
+	}
+
+	html,
+	body {
+		@apply size-full;
+	}
+
+	body {
+		@apply bg-background text-foreground;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-bold;
+	}
+
+	h1 {
+		@apply text-[2em];
+	}
+
+	h2 {
+		@apply text-[1.5em];
+	}
+
+	h3 {
+		@apply text-[1.17em];
+	}
+
+	h4 {
+		@apply text-[1em];
+	}
+
+	h5 {
+		@apply text-[.83em];
+	}
+
+	h6 {
+		@apply text-[.67em];
+	}
+}
+
+@utility bg-tick {
+	background-image: 'url("data:image/svg+xml,%3csvg viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg"%3e%3cpath d="M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z"/%3e%3c/svg%3e")'
+}
+
+.wrapper {
+	@apply h-full min-h-screen lg:grid lg:grid-cols-[auto_1fr];
+}
+
+.layout {
+	@apply grid max-w-[100vw] grid-rows-[auto_1fr_auto] overflow-y-auto;
+}
+
+.create-grid {
+	@apply mx-auto grid max-w-6xl grid-rows-[auto_1fr] gap-8 lg:grid-cols-[16rem_auto] lg:grid-rows-[unset];
+}
+
+/****** Forms ******/
+.form {
+	@apply grid gap-4;
+
+	.form-item {
+		@apply flex flex-col gap-2;
+	}
+}
+
+.form-item {
+	@apply flex flex-col gap-2.5;
+
+	.form-label {
+		@apply text-sm/none text-foreground;
+	}
+
+	&.form-error {
+		.form-label {
+			@apply text-destructive;
+		}
+
+		.form-input,
+		.form-textarea {
+			@apply border-destructive;
+		}
+	}
+}
+
+.form-input {
+	&.input-hidden {
+		@apply hidden;
+	}
+
+	&[type='file'] {
+		@apply cursor-pointer;
+
+		&::file-selector-button {
+			@apply -ml-3 -mt-1.5 me-4 h-9 cursor-pointer border-0 border-e border-solid border-border bg-background px-4 py-1.5 text-foreground;
+		}
+
+		&:hover::file-selector-button {
+			@apply bg-background/80;
+		}
+	}
+}
+
+.form-textarea {
+	@apply rounded-md border border-border bg-input px-3 py-1.5;
+
+	&:focus {
+		@apply border-border ring-0 outline-2 outline-offset-2 outline-ring;
+	}
+}
+
+.form-checkbox {
+	@apply inline-block appearance-none border border-border bg-background bg-origin-border p-0 size-4 rounded text-primary;
+	print-color-adjust: exact;
+
+	&:focus {
+		@apply outline-2 outline-offset-2 outline-primary ring-offset-background;
+	}
+
+	&:checked {
+		@apply border-0 bg-current bg-tick;
+	}
+}
+
+.pagination {
+	@apply flex gap-1;
+}
+
+.authors-list {
+	.author-title-center {
+		@apply text-center;
+	}
+}

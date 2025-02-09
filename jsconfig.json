@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+		"target": "es6",
+		"moduleResolution": "nodenext",
+		"module": "NodeNext",
+        "baseUrl": ".",
+        "paths": {
+            "@/js/*": ["resources/js/*"],
+            "@/admin/*": ["resources/apps/admin/*"],
+            "@/root/*": ["resources/apps/root/*"],
+            "ziggy-js": ["./vendor/tightenco/ziggy/dist/index.js"]
+        }
+    },
+    "exclude": ["node_modules", "public"]
+}
