@@ -2,9 +2,7 @@
 	import { Head, usePage } from '@inertiajs/vue3';
 
 	import { BrowserSessionsForm } from '@/admin/components/forms/profile';
-	import { Button } from '@/admin/components/ui/button';
 	import { Card, CardContent, CardFooter } from '@/admin/components/ui/card';
-	import { Dialog, DialogHeader, DialogModal, DialogTitle, DialogTrigger } from '@/admin/components/ui/dialog';
 	import { AppLayout, ProfileLayout } from '@/admin/layout';
 
 	const { sessions } = usePage().props;
@@ -12,7 +10,7 @@
 
 <template>
 	<Head title="Profile" />
-	<AppLayout :links="[{ name: 'Profile', link: '/profile' }]" class="grid gap-8 container lg:grid-cols-[300px_1fr]">
+	<AppLayout :links="[{ name: 'Profile', link: '/profile' }]" class="container grid gap-8 lg:grid-cols-[300px_1fr]">
 		<ProfileLayout>
 			<section class="space-y-4">
 				<div>
@@ -51,7 +49,7 @@
 									/>
 								</div>
 								<div class="flex flex-col gap-1.5">
-									<p class="font-light leading-none">
+									<p class="leading-none font-light">
 										{{ session.device.platform }} - {{ session.device.browser }}
 									</p>
 									<p class="text-xs/none">
@@ -62,17 +60,7 @@
 						</div>
 					</CardContent>
 					<CardFooter class="px-6">
-						<Dialog>
-							<DialogTrigger as-child>
-								<Button variant="secondary">Log Out Other Browser Sessions </Button>
-							</DialogTrigger>
-							<DialogModal>
-								<DialogHeader>
-									<DialogTitle>Log Out Other Browser Sessions </DialogTitle>
-								</DialogHeader>
-								<BrowserSessionsForm />
-							</DialogModal>
-						</Dialog>
+						<BrowserSessionsForm />
 					</CardFooter>
 				</Card>
 			</section>
