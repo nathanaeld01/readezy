@@ -22,7 +22,11 @@ Route::domain('admin.' . config('app.url'))->name('admin.')->group(function () {
 	});
 
 	// Protected Admin Routes
-	Route::middleware(['auth', 'role:super admin'])->group(function () {
+	Route::middleware([
+		'auth',
+		'role:super admin|admin'
+	])
+	->group(function () {
 		// Dashboard
 		Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 		Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -62,7 +66,7 @@ Route::domain('admin.' . config('app.url'))->name('admin.')->group(function () {
 			Route::controller(AuthorController::class)->group(function () {
 				Route::get('/authors', 'retrieve');
 				Route::post('/authors/create', 'store');
-				Route::delete('/authors/{slug}', 'destroy');
+				Route::delete('/authors', 'destroy');
 			});
 
 			// Series API Operations

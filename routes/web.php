@@ -7,7 +7,7 @@ use App\Http\Controllers\Root\HomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::domain(config('app.url'))->group(function () {
+Route::domain(config('app.url'))->name('web.')->group(function () {
 	Route::get('/', [HomeController::class, 'index'])
 		->name('home');
 
