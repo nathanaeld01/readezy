@@ -1,22 +1,30 @@
 <script setup>
-	import { Head } from '@inertiajs/vue3';
-	import { ref, watch } from 'vue';
+	import { Head, router } from '@inertiajs/vue3';
+	import { inject, ref } from 'vue';
 
-	import { CreateAuthorForm, SearchAuthorForm } from '@/admin/components/forms/author';
+	import { CreateAuthorForm, DeleteAuthorForm, SearchAuthorForm } from '@/admin/components/forms/author';
 	import { AuthorsListTable } from '@/admin/components/tables';
-	import { Button } from '@/admin/components/ui/button';
 	import { Pagination } from '@/admin/components/ui/pagination';
 	import { AppLayout } from '@/admin/layout';
 
-	const props = defineProps({
+	const { authors, pagination, searchTerm } = defineProps({
 		authors: { type: Object, required: true },
 		searchTerm: { type: String, required: false },
-		pagination: { type: Object, required: true },
+		pagination: {
+			type: Object,
+			required: true,
+			default: () => ({
+				current_page: 1,
+				total: 0,
+				per_page: 5,
+			}),
+		},
 	});
 
+	const route = inject('route');
 	const selectedAuthors = ref([]);
 
-	watch(selectedAuthors, (value) => console.log(value));
+	const onPaginate = (index) => router.get('/authors', { ...route().params, page: index });
 </script>
 
 <template>
@@ -28,23 +36,20 @@
 		</div>
 		<div class="space-y-4">
 			<div class="flex items-center justify-between">
-				<SearchAuthorForm :value="props.searchTerm" class="max-w-75" />
+				<SearchAuthorForm :value="searchTerm" class="max-w-75" />
 				<div class="flex gap-2">
-					<Button v-if="selectedAuthors.length" variant="danger">
-						<i class="ri-delete-bin-line"></i>
-						<span>Delete Author{{ selectedAuthors.length > 1 ? 's' : '' }}</span>
-						<span
-							class="flex size-5 items-center justify-center rounded-full bg-white/30 text-xs/none text-white"
-						>
-							{{ selectedAuthors.length }}
-						</span>
-					</Button>
+					<DeleteAuthorForm v-if="selectedAuthors.length" :values="selectedAuthors" />
 					<CreateAuthorForm />
 				</div>
 			</div>
-			<AuthorsListTable :data="props.authors" @update:row-selection="selectedAuthors = $event" />
+			<AuthorsListTable :data="authors" @update:row-selection="selectedAuthors = $event" />
 			<div class="flex items-center justify-between">
-				<Pagination :default-page="props.pagination.current_page" :total="props.pagination.total" />
+				<Pagination
+					:total="pagination.total"
+					:current-page="pagination.current_page"
+					:per-page="pagination.per_page"
+					@update:page="onPaginate"
+				/>
 			</div>
 		</div>
 	</AppLayout>
