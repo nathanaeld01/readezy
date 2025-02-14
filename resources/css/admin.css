@@ -180,10 +180,6 @@
 	}
 }
 
-@utility bg-tick {
-	background-image: 'url("data:image/svg+xml,%3csvg viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg"%3e%3cpath d="M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z"/%3e%3c/svg%3e")'
-}
-
 .wrapper {
 	@apply h-full min-h-screen lg:grid lg:grid-cols-[auto_1fr];
 }
@@ -209,17 +205,12 @@
 	@apply flex flex-col gap-2.5;
 
 	.form-label {
-		@apply text-sm/none text-foreground;
+		@apply text-foreground text-sm/none;
 	}
 
 	&.form-error {
 		.form-label {
 			@apply text-destructive;
-		}
-
-		.form-input,
-		.form-textarea {
-			@apply border-destructive;
 		}
 	}
 }
@@ -233,7 +224,7 @@
 		@apply cursor-pointer;
 
 		&::file-selector-button {
-			@apply -ml-3 -mt-1.5 me-4 h-9 cursor-pointer border-0 border-e border-solid border-border bg-background px-4 py-1.5 text-foreground;
+			@apply border-border bg-background text-foreground me-4 -mt-1.5 -ml-3 h-9 cursor-pointer border-0 border-e border-solid px-4 py-1.5;
 		}
 
 		&:hover::file-selector-button {
@@ -243,28 +234,147 @@
 }
 
 .form-textarea {
-	@apply rounded-md border border-border bg-input px-3 py-1.5;
+	@apply border-border bg-input rounded-md border px-3 py-1.5;
 
 	&:focus {
-		@apply border-border ring-0 outline-2 outline-offset-2 outline-ring;
+		@apply border-border outline-ring ring-0 outline-2 outline-offset-2;
 	}
 }
 
 .form-checkbox {
-	@apply inline-block appearance-none border border-border bg-background bg-origin-border p-0 size-4 rounded text-primary;
+	@apply border-border bg-background text-primary inline-block size-4 appearance-none rounded border bg-origin-border p-0;
 	print-color-adjust: exact;
 
-	&:focus {
-		@apply outline-2 outline-offset-2 outline-primary ring-offset-background;
+	&:focus:enabled {
+		@apply outline-primary ring-offset-background outline-2 outline-offset-2;
 	}
 
-	&:checked {
-		@apply border-0 bg-current bg-tick;
+	&[data-state='checked'] {
+		@apply border-0 bg-current;
 	}
 }
 
 .pagination {
 	@apply flex gap-1;
+}
+
+.dialog {
+	@apply border-border bg-popover fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 grid-rows-[auto_1fr_auto] rounded-md border shadow-lg duration-200;
+
+	&[data-state='open'] {
+		@apply animate-in fade-in-0 zoom-in-95;
+	}
+
+	&[data-state='closed'] {
+		@apply animate-out fade-out-0 zoom-out-95;
+	}
+
+	.dialog-header {
+		@apply border-border flex items-center gap-2.5 border-b px-4 py-2.5;
+	}
+
+	.dialog-content {
+		@apply p-4;
+	}
+
+	.dialog-footer {
+		@apply border-border flex items-center gap-2.5 border-t px-4 py-2.5;
+	}
+}
+
+.dialog-overlay {
+	@apply data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80;
+}
+
+.dialog-header {
+	.dialog-title {
+		@apply text-lg leading-none font-semibold tracking-tight;
+	}
+
+	.dialog-close {
+		@apply ml-auto;
+	}
+}
+
+.toast {
+	@apply border-border bg-popover text-popover-foreground flex w-[var(--width)] items-center gap-4 overflow-hidden rounded-md border p-4 text-xs shadow-md;
+
+	&-icon {
+		@apply border-popover-foreground/15 mx-0 size-fit justify-center rounded-full border-4;
+	}
+
+	&-content {
+		@apply gap-1.5;
+	}
+
+	&-title {
+		@apply text-sm leading-none;
+	}
+
+	.icon {
+		&-loading,
+		&-success,
+		&-info,
+		&-warning,
+		&-error {
+			@apply size-5 rounded-full;
+		}
+
+		&-success,
+		&-info,
+		&-warning,
+		&-error {
+			@apply shadow-[0_0_65px_50px];
+		}
+
+		&-loading {
+			@apply fill-popover-foreground hidden;
+		}
+
+		&-success {
+			@apply fill-success shadow-success/10;
+		}
+		&-info {
+			@apply fill-info shadow-info/10;
+		}
+		&-warning {
+			@apply fill-warning shadow-warning/10;
+		}
+		&-error {
+			@apply fill-error shadow-error/10;
+		}
+	}
+
+	&[data-type='loading'] {
+		.toast-icon {
+			@apply animate-spin border-transparent;
+		}
+
+		.icon-loading {
+			@apply block;
+		}
+	}
+
+	&[data-type='error'] {
+		.toast-title,
+		.toast-icon {
+			@apply text-error;
+		}
+	}
+
+	&[data-type='success'] {
+		.toast-title,
+		.toast-icon {
+			@apply text-success;
+		}
+	}
+
+	&[data-type='warning'] {
+		.toast-title,
+		.toast-icon {
+			@apply text-warning;
+		}
+	}
 }
 
 .authors-list {

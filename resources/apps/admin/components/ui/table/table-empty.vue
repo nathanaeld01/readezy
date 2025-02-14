@@ -17,7 +17,7 @@
 </script>
 
 <template>
-	<TableRow>
+	<TableRow class="hover:bg-transparent">
 		<TableCell
 			:class="cn('p-4 align-middle text-sm whitespace-nowrap text-foreground', props.class)"
 			v-bind="delegatedProps"
