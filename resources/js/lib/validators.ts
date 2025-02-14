@@ -16,7 +16,7 @@ const createAuthor = z.object({
 	description: z
 		.string({ required_error: 'Author description is required' })
 		.min(10, 'Description must be at least 10 characters')
-		.max(500, 'Description must not exceed 500 characters'),
+		.max(1000, 'Description must not exceed 1000 characters'),
 });
 
 const createSeries = z.object({

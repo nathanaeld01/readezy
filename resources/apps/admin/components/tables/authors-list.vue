@@ -7,7 +7,7 @@
 	import { Table, TableBody, TableCell, TableEmpty, TableHead, TableHeader, TableRow } from '../ui/table';
 
 	const props = defineProps({
-		data: { type: Array, required: true },
+		data: { type: Array, default: () => [], required: false },
 		rowCount: { type: Number, default: 10, required: false },
 	});
 	const emits = defineEmits(['update:rowSelection']);
@@ -22,6 +22,7 @@
 				h(Checkbox, {
 					checked: table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate'),
 					'onUpdate:checked': (value) => table.toggleAllPageRowsSelected(!!value),
+					disabled: table.getCoreRowModel().rows.length === 0,
 					ariaLabel: 'Select all',
 				}),
 			cell: ({ row }) =>
@@ -42,9 +43,9 @@
 				h('img', {
 					src: row.getValue('image_url'),
 					alt: row.original.title,
-					class: 'size-10 object-cover rounded-full mx-auto',
+					class: 'size-10 object-cover rounded-full',
 				}),
-			headerClass: 'w-25 text-center',
+			headerClass: 'w-18 text-center',
 		}),
 		columnHelper.group({
 			accessorKey: 'title',

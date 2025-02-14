@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import { twMerge } from 'tailwind-merge';
+import { computed, inject } from 'vue';
 
 const cn = (...classes) => twMerge(clsx(classes));
 
@@ -28,4 +29,16 @@ const imageSize = (bytes) => {
 	return `${(bytes / Math.pow(1024, i)).toFixed(2)} ${sizes[i]}`;
 };
 
-export { cn, formatDate, imageSize, imageUrl, previewImage };
+const queryParams = (key) => {
+	const route = inject('route');
+	const params = computed(() => route().params);
+
+	// remove the key from the existing params if it exists
+	if (key in params.value) {
+		delete params[key];
+	}
+
+	return params;
+};
+
+export { cn, formatDate, imageSize, imageUrl, previewImage, queryParams };

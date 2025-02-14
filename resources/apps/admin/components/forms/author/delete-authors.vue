@@ -17,20 +17,17 @@
 	import { toast } from '../../ui/sonner';
 
 	const props = defineProps({
-		slug: { type: String, required: true },
+		values: { type: Array, required: true },
 	});
 
+	const values = computed(() => props.values);
 	const open = ref(false);
 
 	const { mutateAsync, status, error } = useMutation({
 		mutationKey: ['deleteAuthor'],
-		mutationFn: async () => {
-			await axios.delete(`/authors/${props.slug}`);
-		},
-		onMutate: () => {
-			open.value = false;
-		},
+		mutationFn: (data) => axios.delete('/api/authors', { data: { ids: data } }),
 		onSuccess: () => {
+			open.value = false;
 			router.reload();
 		},
 	});
@@ -42,7 +39,7 @@
 			success: 'Author deleted successfully',
 		};
 
-		toast.promise(mutateAsync(), {
+		toast.promise(mutateAsync(values.value), {
 			description: computed(() => messages[status.value]),
 		});
 	};
@@ -51,8 +48,12 @@
 <template>
 	<Dialog v-model:open="open">
 		<DialogTrigger as-child :disabled="status === 'pending'">
-			<Button variant="danger" icon title="Delete Author">
-				<i class="ri-delete-bin-line" />
+			<Button variant="danger">
+				<i class="ri-delete-bin-line"></i>
+				<span>Delete Author{{ values.length > 1 ? 's' : '' }}</span>
+				<span class="flex size-5 items-center justify-center rounded-full bg-white/30 text-xs/none text-white">
+					{{ values.length }}
+				</span>
 			</Button>
 		</DialogTrigger>
 		<DialogModal>

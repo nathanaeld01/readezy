@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\Cloudinary;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Author\DestroyRequest;
 use App\Http\Requests\Author\StoreRequest;
 use App\Models\Author;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use PhpParser\Node\Stmt\TryCatch;
 
 class AuthorController extends Controller {
 	// View list of authors
@@ -19,7 +21,7 @@ class AuthorController extends Controller {
 			->select(['id', 'slug', 'title', 'image_url'])
 			->withCount(['books', 'series'])
 			->when($searchTerm, fn($q) => $q->search($searchTerm))
-			->paginate(10)
+			->paginate(5)
 			->withQueryString()
 			->through(fn($author) => tap($author, fn($a) => $a->image_url = Cloudinary::image($a->image_url, 'c_fill,g_face,w_100,h_100')));
 
@@ -85,13 +87,12 @@ class AuthorController extends Controller {
 		$request->validated();
 
 		$slug = SlugService::createSlug(Author::class, 'slug', $request->name);
-
 		$author = Author::firstOrCreate(
 			['slug' => $slug],
 			[
 				'slug' => $slug,
 				'title' => $request->name,
-				'image_url' => Cloudinary::exists("authors/$slug") ?? Cloudinary::upload($request->image, [
+				'image_url' => Cloudinary::upload($request->image, [
 					'public_id' => $slug,
 					'folder' => 'authors',
 					'transformation' => 'author',
@@ -105,24 +106,24 @@ class AuthorController extends Controller {
 			: response()->json(['message' => 'Author already exists'], 409);
 	}
 
-	public function destroy(Request $request) {
+	public function destroy(DestroyRequest $request) {
 		if (!$request->user()) {
 			return response()->json(['message' => 'You need to be logged in'], 401);
 		}
 
-		if (!$request->user()->hasRole('admin')) {
+		if (!$request->user()->hasRole(['admin', 'super admin'])) {
 			return response()->json(['message' => 'You do not have permission to delete an author'], 403);
 		}
 
-		$request->validated();
+		$data = $request->validated();
 
-		$author = Author::where('slug', $request->slug)->firstOrFail();
+		try {
+			$plural = count($data['ids']) > 1 ? 's' : '';
+			collect($data['ids'])->each(fn($id) => Author::query()->where('slug', '=', $id)->delete());
 
-		if ($author->image_url) {
-			cloudinary()->destroy(str_replace('.webp', '', $author->image_url));
+			return response()->json(['message' => "Author{$plural} deleted successfully"], 200);
+		} catch (\Exception $e) {
+			return response()->json(['message' => $e->getMessage()], 500);
 		}
-		$author->forceDelete();
-
-		return response()->json(['message' => 'Author deleted successfully'], 200);
 	}
 }

@@ -2,6 +2,7 @@
 	import { router } from '@inertiajs/vue3';
 	import { useMutation } from '@tanstack/vue-query';
 	import axios from 'axios';
+	import { ref } from 'vue';
 
 	import { createAuthorSchema } from '@/js/lib/validators';
 	import { Button } from '../../ui/button';
@@ -20,18 +21,22 @@
 		SheetTrigger,
 	} from '../../ui/sheet';
 
+	const open = ref(false);
+
 	const { mutateAsync } = useMutation({
 		mutationKey: ['createAuthor'],
 		mutationFn: (values) => axios.postForm('/api/authors/create', values),
-		onSuccess: () => router.reload({ only: ['authors'] }),
-		onError: (error) => console.error('Error creating author:', error),
+		onSuccess: () => {
+			open.value = false;
+			router.reload({ only: ['authors'] });
+		},
 	});
 
 	const createAuthor = (v) => mutateAsync(v);
 </script>
 
 <template>
-	<Sheet>
+	<Sheet :open @update:open="open = $event">
 		<SheetTrigger as-child>
 			<Button>
 				<i class="ri-add-line" />
@@ -50,7 +55,12 @@
 					<SheetDescription class="hidden">Fill in the form below to create a new author.</SheetDescription>
 				</SheetHeader>
 				<SheetContent>
-					<form id="create-author" class="form" @submit="handleSubmit($event, createAuthor)">
+					<form
+						id="create-author"
+						class="form"
+						@submit.prevent="handleSubmit($event, createAuthor)"
+						@reset="handleReset"
+					>
 						<FormField v-slot="{ componentField }" name="image">
 							<FormItem>
 								<FormLabel>Image</FormLabel>
@@ -72,7 +82,7 @@
 					</form>
 				</SheetContent>
 				<SheetFooter class="flex-col">
-					<Button form="create-author" variant="secondary" :disabled="!isResettable" @click="handleReset">
+					<Button type="reset" form="create-author" variant="secondary" :disabled="!isResettable">
 						Reset
 					</Button>
 					<Button type="submit" form="create-author" variant="primary" :disabled="!isSubmittable">
