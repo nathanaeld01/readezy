@@ -7,9 +7,12 @@ export default defineConfig({
 	plugins: [
 		laravel({
 			buildDirectory: 'build/admin',
+			hotFile: 'public/admin.hot',
 			input: 'frontend/admin/app.tsx',
 			ssr: 'frontend/admin/ssr.tsx',
-			refresh: true,
+			refresh: {
+				paths: ['resources/views/admin.blade.php'],
+			},
 		}),
 		react(),
 		tailwindcss(),

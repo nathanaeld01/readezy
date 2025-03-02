@@ -13,7 +13,7 @@ class HandleInertiaRequests extends Middleware {
      * @var string
      */
     public function rootView(Request $request): string {
-        return $request->routeIs('admin.*') ? 'admin' : 'web';
+        return $request->routeIs('admin.*') ? 'admin' : 'app';
     }
 
     /**

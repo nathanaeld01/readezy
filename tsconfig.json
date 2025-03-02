@@ -17,11 +17,14 @@
         }
     },
     "include": [
-        "**/*.ts",
-        "**/*.tsx",
+        "frontend/**/*.tsx",
+        "frontend/**/*.ts",
+        "resources/**/*.tsx",
+        "resources/**/*.ts",
         "**/*.config.js",
         "**/*.config.ts",
         "**/*.config.mjs",
+        "vendor/tightenco/ziggy"
     ],
     "exclude": ["node_modules"]
 }
