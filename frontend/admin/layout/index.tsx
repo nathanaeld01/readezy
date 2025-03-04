@@ -15,7 +15,7 @@ type Props = {
 export const AdminLayout = ({ className, children }: Props) => {
 	return (
 		<SidebarProvider>
-			<Sidebar>
+			<Sidebar variant="compact">
 				<SidebarHeader className="flex items-center px-6">
 					<Logo className="-mb-1.5 h-7" />
 				</SidebarHeader>

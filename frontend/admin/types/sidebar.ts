@@ -13,6 +13,7 @@ type SidebarProviderProps = {
 );
 
 type SidebarProps = {
+	variant?: 'default' | 'compact';
 	children?: React.ReactNode;
 };
 

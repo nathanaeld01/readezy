@@ -49,19 +49,25 @@
 }
 
 @utility max-w-sidebar {
-	transition: max-width 0.25s;
-
-	[data-state='expanded'] & {
-		max-width: 20rem;
+	&[data-state='expanded'] {
+		max-width: var(--sidebar-width);
 	}
 
-	[data-state='collapsed'] & {
+	&[data-state='collapsed'] {
 		max-width: 0;
+
+		&[data-variant='compact'] {
+			max-width: var(--sidebar-compact-width);
+		}
 	}
 }
 
 @utility w-sidebar {
-	width: 20rem;
+	width: var(--sidebar-width);
+
+	[data-variant='compact'][data-state='collapsed'] & {
+		width: var(--sidebar-compact-width);
+	}
 }
 
 @layer base {
@@ -91,6 +97,8 @@
 		--chart-4: hsl(0 0% 95.16%);
 		--chart-5: hsl(0 3% 9.41%);
 
+		--sidebar-width: 20rem;
+		--sidebar-compact-width: 5rem;
 		--sidebar-background: oklch(17.3% 0 0);
 		--sidebar-foreground: oklch(98.51% 0 0);
 		--sidebar-primary: hsl(240 5.9% 10%);
