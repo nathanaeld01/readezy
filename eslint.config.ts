@@ -17,6 +17,7 @@ export default tslint.config(
 				'warn',
 				{
 					argsIgnorePattern: '^_',
+					varsIgnorePattern: '^_',
 				},
 			],
 		},

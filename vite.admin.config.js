@@ -7,7 +7,6 @@ export default defineConfig({
 	plugins: [
 		laravel({
 			buildDirectory: 'build/admin',
-			hotFile: 'public/admin.hot',
 			input: 'frontend/admin/app.tsx',
 			ssr: 'frontend/admin/ssr.tsx',
 			refresh: {
@@ -20,6 +19,8 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@/admin': '/frontend/admin',
+			'@/web': '/frontend/web',
+			'~/': '/resources/js/',
 			'ziggy-js': '/vendor/tightenco/ziggy/dist',
 		},
 	},
