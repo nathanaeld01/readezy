@@ -57,7 +57,7 @@ const Sidebar = ({ variant = 'default', children }: SidebarProps) => {
 			<div className="relative h-full w-sidebar transition-[width] duration-250"></div>
 			<div
 				className={cn(
-					'fixed top-0 right-0 left-0 z-0 h-full w-sidebar border-r border-sidebar-border transition-[width,right] duration-250',
+					'fixed top-0 left-sidebar z-0 h-full w-sidebar border-r border-sidebar-border transition-[width,left] duration-250',
 				)}
 			>
 				{children}

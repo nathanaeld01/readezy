@@ -74,6 +74,14 @@
 	}
 }
 
+@utility left-sidebar {
+	left: 0;
+
+	[data-variant='default'][data-state='collapsed'] & {
+		left: calc(var(--sidebar-width) * -1);
+	}
+}
+
 @layer base {
 	:root {
 		--background: oklch(15.43% 0 0);
