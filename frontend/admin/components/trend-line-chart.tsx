@@ -77,16 +77,21 @@ export const TrendLineChart = ({
 					dataKey="pv"
 					stroke={`url(#${gradientId})`}
 					strokeWidth={2}
-					dot={props => (
-						<CustomDot
-							{...props}
-							isLastPoint={
-								// eslint-disable-next-line react/prop-types
-								!!(props.payload.name === lastPoint.name)
-							}
-							dotColor={dotColor}
-						/>
-					)}
+					dot={props => {
+						// eslint-disable-next-line react/prop-types
+						const { key, ...rest } = props;
+						return (
+							<CustomDot
+								key={key}
+								{...rest}
+								isLastPoint={
+									// eslint-disable-next-line react/prop-types
+									!!(props.payload.name === lastPoint.name)
+								}
+								dotColor={dotColor}
+							/>
+						);
+					}}
 				/>
 			</LineChart>
 		</ResponsiveContainer>

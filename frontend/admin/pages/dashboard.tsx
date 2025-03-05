@@ -1,6 +1,11 @@
 import { Head } from '@inertiajs/react';
 import { AdminLayout } from '../layout';
-import { Card } from '../components/ui/card';
+import {
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle,
+} from '../components/ui/card';
 import { MetricCard } from '../components/dashboard/metric-card';
 
 export default function Dashboard() {
@@ -82,7 +87,15 @@ export default function Dashboard() {
 					]}
 				/>
 			</div>
-			<Card></Card>
+			<div className="grid grid-cols-12 gap-4">
+				<div className="col-span-9"></div>
+				<Card className="col-span-3">
+					<CardHeader>
+						<CardTitle>Popular Books</CardTitle>
+					</CardHeader>
+					<CardContent></CardContent>
+				</Card>
+			</div>
 		</>
 	);
 }

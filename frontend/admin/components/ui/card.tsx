@@ -16,7 +16,7 @@ const Card = ({ className, ...props }: React.ComponentProps<'div'>) => (
 const CardHeader = ({ className, ...props }: React.ComponentProps<'div'>) => (
 	<div
 		data-slot="card-header"
-		className={cn('flex gap-1.5 pb-4', className)}
+		className={cn('flex gap-1.5 border-b border-border pb-4', className)}
 		{...props}
 	/>
 );
@@ -24,7 +24,10 @@ const CardHeader = ({ className, ...props }: React.ComponentProps<'div'>) => (
 const CardTitle = ({ className, ...props }: React.ComponentProps<'h3'>) => (
 	<h3
 		data-slot="card-title"
-		className={cn('leading-none font-semibold', className)}
+		className={cn(
+			'leading-none font-normal text-muted-foreground',
+			className,
+		)}
 		{...props}
 	/>
 );

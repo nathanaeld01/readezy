@@ -16,13 +16,11 @@ type Props = {
 
 export const MetricCard = ({ data, title, value, reverse }: Props) => (
 	<Card className="col-span-full @lg:col-span-6 @4xl:col-span-3">
-		<CardHeader className="items-end justify-between border-b border-border">
+		<CardHeader className="items-end justify-between">
 			<CardDescription className="font-space text-2xl text-foreground">
 				{value}
 			</CardDescription>
-			<CardTitle className="font-normal text-muted-foreground">
-				{title}
-			</CardTitle>
+			<CardTitle>{title}</CardTitle>
 		</CardHeader>
 		<CardContent>
 			<TrendLineChart
