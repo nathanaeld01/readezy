@@ -40,6 +40,10 @@
 	--color-sidebar-ring: var(--sidebar-ring);
 }
 
+@utility font-space {
+	font-family: 'Space Mono', monospace;
+}
+
 @utility container {
 	margin-inline: auto;
 }
@@ -75,11 +79,11 @@
 		--background: oklch(15.43% 0 0);
 		--foreground: oklch(98.51% 0 0);
 		--muted: hsl(0 0% 92.16%);
-		--muted-foreground: hsl(0 0% 43.14%);
+		--muted-foreground: hsl(0, 0%, 74%);
 		--popover: hsl(0 0% 100%);
 		--popover-foreground: hsl(0 0% 9.41%);
 		--card: oklch(17.3% 0 0);
-		--card-foreground: hsl(0 0% 9.41%);
+		--card-foreground: hsl(0, 0%, 96%);
 		--border: oklch(28.69% 0 0);
 		--input: hsl(0 0% 89.8%);
 		--primary: hsl(0 0% 9.41%);
@@ -91,11 +95,13 @@
 		--destructive: hsl(0 100% 68.24%);
 		--destructive-foreground: hsl(0 0% 100%);
 		--ring: hsl(0 0% 3.9%);
-		--chart-1: hsl(0 0% 9.41%);
+		--chart-1: hsl(0, 0%, 100%);
 		--chart-2: hsl(0 0% 92.16%);
 		--chart-3: oklch(97.31% 0 0);
 		--chart-4: hsl(0 0% 95.16%);
 		--chart-5: hsl(0 3% 9.41%);
+		--chart-red: hsl(0, 100%, 65%);
+		--chart-green: hsl(90, 100%, 65%);
 
 		--sidebar-width: 20rem;
 		--sidebar-compact-width: 5rem;
