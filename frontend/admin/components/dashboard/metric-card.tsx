@@ -1,4 +1,4 @@
-import { TrendLineChart } from '../trend-line-chart';
+import { TrendLineChart } from './trend-line-chart';
 import {
 	Card,
 	CardContent,

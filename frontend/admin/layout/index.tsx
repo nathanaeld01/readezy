@@ -1,11 +1,7 @@
-import { cn } from '~/lib/utils';
-import {
-	Sidebar,
-	SidebarHeader,
-	SidebarProvider,
-} from '../components/ui/sidebar';
+import { SidebarProvider } from '../components/ui/sidebar';
+import { AppSidebar } from '../components/layout/app-sidebar';
 import { Topbar } from './topbar';
-import { Logo } from '../components/layout/logo';
+import { cn } from '~/lib/utils';
 
 type Props = {
 	className?: string;
@@ -15,11 +11,7 @@ type Props = {
 export const AdminLayout = ({ className, children }: Props) => {
 	return (
 		<SidebarProvider>
-			<Sidebar variant="compact">
-				<SidebarHeader className="flex items-center px-6">
-					<Logo className="-mb-1.5 h-7" />
-				</SidebarHeader>
-			</Sidebar>
+			<AppSidebar />
 			<div className="grid size-full grid-rows-[auto_1fr_auto]">
 				<Topbar />
 				<main className={cn('container p-8', className)}>
