@@ -44,7 +44,7 @@ const CardDescription = ({
 );
 
 const CardContent = ({ className, ...props }: React.ComponentProps<'div'>) => (
-	<div data-slot="card-content" className={cn(className)} {...props} />
+	<div data-slot="card-content" className={className} {...props} />
 );
 
 const CardFooter = ({ className, ...props }: React.ComponentProps<'div'>) => (

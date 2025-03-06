@@ -3,6 +3,7 @@
 @source "./";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant group-compact-collapsed ([data-variant='compact'][data-state='collapsed'] &);
 
 @theme inline {
 	--color-background: var(--background);
@@ -86,7 +87,7 @@
 	:root {
 		--background: oklch(15.43% 0 0);
 		--foreground: oklch(98.51% 0 0);
-		--muted: hsl(0 0% 92.16%);
+		--muted: oklch(73.8% 0 0);
 		--muted-foreground: hsl(0, 0%, 74%);
 		--popover: hsl(0 0% 100%);
 		--popover-foreground: hsl(0 0% 9.41%);
@@ -112,14 +113,14 @@
 		--chart-green: hsl(90, 100%, 65%);
 
 		--sidebar-width: 20rem;
-		--sidebar-compact-width: 5rem;
+		--sidebar-compact-width: calc(var(--spacing) * 11 + var(--spacing) * 8);
 		--sidebar-background: oklch(17.3% 0 0);
 		--sidebar-foreground: oklch(98.51% 0 0);
 		--sidebar-primary: hsl(240 5.9% 10%);
 		--sidebar-primary-foreground: hsl(0 0% 98%);
-		--sidebar-accent: hsl(240 4.8% 95.9%);
+		--sidebar-accent: oklch(21.34% 0 0);
 		--sidebar-accent-foreground: hsl(240 5.9% 10%);
-		--sidebar-border: oklch(28.69% 0 0);
+		--sidebar-border: oklch(32.5% 0 0);
 		--sidebar-ring: hsl(217.2 91.2% 59.8%);
 	}
 

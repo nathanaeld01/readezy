@@ -1,25 +1,35 @@
-type SidebarProviderProps = {
-	onOpenChange?: (open: boolean) => void;
+type SidebarDefaultProps = {
 	children?: React.ReactNode;
-} & (
-	| {
-			open?: boolean;
-			defaultOpen?: never;
-	  }
-	| {
-			defaultOpen?: boolean;
-			open?: never;
-	  }
-);
-
-type SidebarProps = {
-	variant?: 'default' | 'compact';
-	children?: React.ReactNode;
-};
-
-type SidebarHeaderProps = {
 	className?: string;
-	children?: React.ReactNode;
 };
 
-export type { SidebarProviderProps, SidebarProps, SidebarHeaderProps };
+type SidebarProviderProps = SidebarDefaultProps & {
+	onOpenChange?: (open: boolean) => void;
+} & (
+		| {
+				open?: boolean;
+				defaultOpen?: never;
+		  }
+		| {
+				defaultOpen?: boolean;
+				open?: never;
+		  }
+	);
+
+type SidebarButtonProps = SidebarDefaultProps & {
+	icon?: string;
+	collapasible?: boolean;
+};
+
+type SidebarLinkProps = SidebarDefaultProps & {
+	href: string;
+	icon?: string;
+	isSub?: boolean;
+};
+
+export type {
+	SidebarDefaultProps,
+	SidebarProviderProps,
+	SidebarButtonProps,
+	SidebarLinkProps,
+};
