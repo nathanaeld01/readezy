@@ -10,7 +10,7 @@ type Props = {
 
 export const AdminLayout = ({ className, children }: Props) => {
 	return (
-		<SidebarProvider>
+		<SidebarProvider variant="compact">
 			<AppSidebar />
 			<div className="grid size-full grid-rows-[auto_1fr_auto]">
 				<Topbar />

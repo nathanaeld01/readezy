@@ -8,15 +8,12 @@ import {
 	SidebarMenuLink,
 	SidebarMenu,
 	SidebarMenuItem,
-	SidebarMenuSub,
-	SidebarMenuSubItem,
-	SidebarMenuButton,
 } from '../ui/sidebar';
 import { Logo } from './logo';
 
 export const AppSidebar = () => {
 	return (
-		<Sidebar variant="compact" rail>
+		<Sidebar rail>
 			<SidebarHeader className="flex items-center px-6">
 				<Logo className="-mb-1.5 h-7" />
 			</SidebarHeader>
@@ -27,8 +24,9 @@ export const AppSidebar = () => {
 							<SidebarMenuLink
 								icon="hgi-dashboard-square-02"
 								href="/"
+								tooltip="Dashboard"
 							>
-								<span>Dashboard</span>
+								Dashboard
 							</SidebarMenuLink>
 						</SidebarMenuItem>
 					</SidebarMenu>
@@ -38,16 +36,74 @@ export const AppSidebar = () => {
 					<SidebarGroupContent>
 						<SidebarMenu>
 							<SidebarMenuItem>
-								<SidebarMenuButton
-									icon="hgi-dashboard-square-02"
-									collapasible
+								<SidebarMenuLink
+									icon="hgi-quill-write-01"
+									href="/authors"
+									tooltip="Authors"
 								>
-									<span>Authors</span>
-								</SidebarMenuButton>
-								<SidebarMenuSub>
-									<SidebarMenuSubItem></SidebarMenuSubItem>
-									<SidebarMenuSubItem></SidebarMenuSubItem>
-								</SidebarMenuSub>
+									Authors
+								</SidebarMenuLink>
+							</SidebarMenuItem>
+							<SidebarMenuItem>
+								<SidebarMenuLink
+									icon="hgi-book-02"
+									href="/books"
+									tooltip="Books"
+								>
+									Books
+								</SidebarMenuLink>
+							</SidebarMenuItem>
+							<SidebarMenuItem>
+								<SidebarMenuLink
+									icon="hgi-library"
+									href="/series"
+									tooltip="Series"
+								>
+									Series
+								</SidebarMenuLink>
+							</SidebarMenuItem>
+							<SidebarMenuItem>
+								<SidebarMenuLink
+									icon="hgi-tag-02"
+									href="/genres"
+									tooltip="Genres"
+								>
+									Genres
+								</SidebarMenuLink>
+							</SidebarMenuItem>
+						</SidebarMenu>
+					</SidebarGroupContent>
+				</SidebarGroup>
+				<SidebarGroup>
+					<SidebarGroupTitle>Controls</SidebarGroupTitle>
+					<SidebarGroupContent>
+						<SidebarMenu>
+							<SidebarMenuItem>
+								<SidebarMenuLink
+									icon="hgi-user"
+									href="/users"
+									tooltip="Users"
+								>
+									Users
+								</SidebarMenuLink>
+							</SidebarMenuItem>
+							<SidebarMenuItem>
+								<SidebarMenuLink
+									icon="hgi-shield-user"
+									href="/admins"
+									tooltip="Admins"
+								>
+									Admins
+								</SidebarMenuLink>
+							</SidebarMenuItem>
+							<SidebarMenuItem>
+								<SidebarMenuLink
+									icon="hgi-settings-02"
+									href="/settings"
+									tooltip="Settings"
+								>
+									Settings
+								</SidebarMenuLink>
 							</SidebarMenuItem>
 						</SidebarMenu>
 					</SidebarGroupContent>

@@ -9,6 +9,12 @@ import type {
 } from '@/admin/types/sidebar';
 import { Button } from './button';
 import { cn } from '~/lib/utils';
+import {
+	Tooltip,
+	TooltipProvider,
+	TooltipTrigger,
+	TooltipContent,
+} from './tooltip';
 
 const SidebarContext = createContext<ReturnType<typeof useSidebarStore> | null>(
 	null,
@@ -27,37 +33,41 @@ const SidebarProvider = ({
 	defaultOpen,
 	onOpenChange,
 	className,
+	variant = 'default',
 	children,
-}: SidebarProviderProps) => {
+}: SidebarProviderProps & {
+	variant?: 'default' | 'compact';
+}) => {
 	const store = useSidebarStore({
 		open,
+		variant,
 		defaultOpen,
 		onOpenChange,
 	});
 
 	return (
 		<SidebarContext.Provider value={store}>
-			<div
-				className={cn(
-					'group/wrapper grid size-full grid-cols-sidebar',
-					className,
-				)}
-			>
-				{children}
-			</div>
+			<TooltipProvider>
+				<div
+					className={cn(
+						'group/wrapper grid size-full grid-cols-sidebar',
+						className,
+					)}
+				>
+					{children}
+				</div>
+			</TooltipProvider>
 		</SidebarContext.Provider>
 	);
 };
 
 const Sidebar = ({
-	variant = 'default',
 	rail = false,
 	children,
 }: SidebarDefaultProps & {
-	variant?: 'default' | 'compact';
 	rail?: boolean;
 }) => {
-	const { state } = useSidebar();
+	const { state, variant } = useSidebar();
 
 	return (
 		<aside
@@ -125,7 +135,7 @@ const SidebarGroupTitle = ({ className, children }: SidebarDefaultProps) => {
 	return (
 		<div
 			className={cn(
-				'flex h-8 items-center text-xs/none text-sidebar-foreground transition-[opacity,height,margin] duration-150 group-data-[state=collapsed]/sidebar:-mt-2 group-data-[state=collapsed]/sidebar:h-0 group-data-[state=collapsed]/sidebar:opacity-0',
+				'flex h-8 items-center text-xs/none text-sidebar-foreground transition-[opacity,height,margin] duration-150 group-compact-collapsed:-mt-2 group-compact-collapsed:h-0 group-compact-collapsed:opacity-0',
 				className,
 			)}
 		>
@@ -143,13 +153,19 @@ const SidebarMenu = ({ children }: SidebarDefaultProps) => {
 };
 
 const SidebarMenuItem = ({ children }: SidebarDefaultProps) => {
-	return <li>{children}</li>;
+	return <li className="relative">{children}</li>;
 };
 
-const SidebarMenuLink = ({ href, icon, children }: SidebarLinkProps) => {
+const SidebarMenuLink = ({
+	href,
+	icon,
+	tooltip,
+	children,
+}: SidebarLinkProps) => {
+	const { variant } = useSidebar();
 	const { url } = usePage();
 
-	return (
+	const item = (
 		<Link
 			className={cn(
 				'inline-flex h-11 w-full flex-nowrap items-center overflow-hidden border border-transparent px-3 text-sm/none whitespace-nowrap text-sidebar-foreground transition-[width,background,color] duration-[250ms,150ms,150ms] hover:border-sidebar-border hover:bg-sidebar-accent group-compact-collapsed:w-11',
@@ -171,6 +187,23 @@ const SidebarMenuLink = ({ href, icon, children }: SidebarLinkProps) => {
 			</span>
 		</Link>
 	);
+
+	if (tooltip && variant === 'compact') {
+		return (
+			<Tooltip>
+				<TooltipTrigger asChild>{item}</TooltipTrigger>
+				<TooltipContent
+					align="center"
+					side="right"
+					className="ml-2.5 hidden h-9 min-w-20 items-center justify-center border border-sidebar-border bg-sidebar-background text-sm/none group-compact-collapsed:inline-flex"
+				>
+					{tooltip}
+				</TooltipContent>
+			</Tooltip>
+		);
+	}
+
+	return item;
 };
 
 export {

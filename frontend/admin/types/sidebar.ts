@@ -19,7 +19,7 @@ type SidebarProviderProps = SidebarDefaultProps & {
 type SidebarLinkProps = SidebarDefaultProps & {
 	href: string;
 	icon?: string;
-	isSub?: boolean;
+	tooltip?: string;
 };
 
 export type { SidebarDefaultProps, SidebarProviderProps, SidebarLinkProps };

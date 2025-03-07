@@ -11,6 +11,7 @@ type SidebarState = {
 	isOpen: boolean;
 	isOpenMobile: boolean;
 	state: 'expanded' | 'collapsed';
+	variant: 'compact' | 'default';
 	setOpen: (value: boolean) => void;
 	setOpenMobile: (value: boolean) => void;
 	toggle: () => void;
@@ -21,6 +22,7 @@ const sidebarStore = create<SidebarState>((set, get) => ({
 	isOpen: true,
 	isOpenMobile: false,
 	state: 'expanded',
+	variant: 'default',
 	setOpen: value => {
 		set({ isOpen: value, state: value ? 'expanded' : 'collapsed' });
 		document.cookie = `${SIDEBAR_COOKIE_NAME}=${value}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
@@ -40,12 +42,14 @@ const sidebarStore = create<SidebarState>((set, get) => ({
 type UseSidebarOptions = {
 	defaultOpen?: boolean;
 	open?: boolean;
+	variant?: 'compact' | 'default';
 	onOpenChange?: (open: boolean) => void;
 };
 
 export const useSidebarStore = ({
 	defaultOpen,
 	open,
+	variant,
 	onOpenChange,
 }: UseSidebarOptions) => {
 	const isMobile = useIsMobile();
@@ -76,6 +80,7 @@ export const useSidebarStore = ({
 	return {
 		...store,
 		isMobile,
+		variant,
 		isOpen: open ?? store.isOpen,
 		setOpen: handleSetOpen,
 	};
