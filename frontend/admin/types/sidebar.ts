@@ -16,20 +16,10 @@ type SidebarProviderProps = SidebarDefaultProps & {
 		  }
 	);
 
-type SidebarButtonProps = SidebarDefaultProps & {
-	icon?: string;
-	collapasible?: boolean;
-};
-
 type SidebarLinkProps = SidebarDefaultProps & {
 	href: string;
 	icon?: string;
 	isSub?: boolean;
 };
 
-export type {
-	SidebarDefaultProps,
-	SidebarProviderProps,
-	SidebarButtonProps,
-	SidebarLinkProps,
-};
+export type { SidebarDefaultProps, SidebarProviderProps, SidebarLinkProps };

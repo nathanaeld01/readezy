@@ -1,16 +1,14 @@
-import { SidebarIcon } from 'lucide-react';
 import { createContext, useContext } from 'react';
+import { Link, usePage } from '@inertiajs/react';
 
 import { useSidebarStore } from '@/admin/context/sidebar';
 import type {
-	SidebarButtonProps,
 	SidebarDefaultProps,
 	SidebarLinkProps,
 	SidebarProviderProps,
 } from '@/admin/types/sidebar';
 import { Button } from './button';
 import { cn } from '~/lib/utils';
-import { Link, usePage } from '@inertiajs/react';
 
 const SidebarContext = createContext<ReturnType<typeof useSidebarStore> | null>(
 	null,
@@ -81,7 +79,7 @@ const SidebarTrigger = () => {
 
 	return (
 		<Button variant="ghost" size="icon" className="size-9" onClick={toggle}>
-			<SidebarIcon className="size-5" />
+			<i className="hgi hgi-stroke hgi-layout-left text-lg font-semibold" />
 		</Button>
 	);
 };
@@ -148,55 +146,15 @@ const SidebarMenuItem = ({ children }: SidebarDefaultProps) => {
 	return <li>{children}</li>;
 };
 
-const SidebarMenuSub = ({ children }: SidebarDefaultProps) => {
-	return <ul className="pl-4">{children}</ul>;
-};
-
-const SidebarMenuSubItem = ({ children }: SidebarDefaultProps) => {
-	return <li>{children}</li>;
-};
-
-const SidebarMenuButton = ({
-	collapasible,
-	icon,
-	children,
-}: SidebarButtonProps) => {
-	return (
-		<button
-			type="button"
-			className={cn(
-				'inline-flex h-11 w-full items-center justify-between border border-transparent px-3 text-sm/none text-sidebar-foreground',
-				collapasible &&
-					'cursor-pointer transition-[border,background] duration-150 hover:border-sidebar-border/70 hover:bg-sidebar-accent/50',
-			)}
-		>
-			<div className="flex items-center">
-				<i
-					className={cn(
-						'hgi hgi-stroke pr-3 text-lg font-bold',
-						icon,
-					)}
-				/>
-				<span className="inline-block w-full group-compact-collapsed:hidden">
-					{children}
-				</span>
-			</div>
-			{collapasible && (
-				<i className="hgi hgi-stroke hgi-arrow-down-01 group-compact-collapsed:hidden" />
-			)}
-		</button>
-	);
-};
-
 const SidebarMenuLink = ({ href, icon, children }: SidebarLinkProps) => {
 	const { url } = usePage();
 
 	return (
 		<Link
 			className={cn(
-				'inline-flex h-11 w-full flex-nowrap items-center overflow-hidden border border-sidebar-border px-3 text-sm/none whitespace-nowrap text-sidebar-foreground transition-[width,background,color] duration-[250ms,150ms,150ms] hover:bg-accent/30 group-compact-collapsed:w-11',
+				'inline-flex h-11 w-full flex-nowrap items-center overflow-hidden border border-transparent px-3 text-sm/none whitespace-nowrap text-sidebar-foreground transition-[width,background,color] duration-[250ms,150ms,150ms] hover:border-sidebar-border hover:bg-sidebar-accent group-compact-collapsed:w-11',
 				url.startsWith(href) &&
-					'bg-sidebar-accent hover:bg-sidebar-accent/70',
+					'bg-sidebar-primary text-sidebar-primary-foreground hover:border-transparent hover:bg-sidebar-primary/80',
 			)}
 			href={href}
 		>
@@ -226,8 +184,5 @@ export {
 	SidebarGroupContent,
 	SidebarMenu,
 	SidebarMenuItem,
-	SidebarMenuButton,
-	SidebarMenuSub,
-	SidebarMenuSubItem,
 	SidebarMenuLink,
 };

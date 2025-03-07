@@ -116,8 +116,8 @@
 		--sidebar-compact-width: calc(var(--spacing) * 11 + var(--spacing) * 8);
 		--sidebar-background: oklch(17.3% 0 0);
 		--sidebar-foreground: oklch(98.51% 0 0);
-		--sidebar-primary: hsl(240 5.9% 10%);
-		--sidebar-primary-foreground: hsl(0 0% 98%);
+		--sidebar-primary: oklch(91.57% 0 0);
+		--sidebar-primary-foreground: oklch(14.57% 0 0);
 		--sidebar-accent: oklch(21.34% 0 0);
 		--sidebar-accent-foreground: hsl(240 5.9% 10%);
 		--sidebar-border: oklch(32.5% 0 0);
