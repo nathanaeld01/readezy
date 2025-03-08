@@ -80,7 +80,7 @@ export const AppSidebar = () => {
 						<SidebarMenu>
 							<SidebarMenuItem>
 								<SidebarMenuLink
-									icon="hgi-user"
+									icon="hgi-user-group"
 									href="/users"
 									tooltip="Users"
 								>
