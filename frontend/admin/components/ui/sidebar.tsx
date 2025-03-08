@@ -88,7 +88,12 @@ const SidebarTrigger = () => {
 	const { toggle } = useSidebar();
 
 	return (
-		<Button variant="ghost" size="icon" className="size-9" onClick={toggle}>
+		<Button
+			variant="ghost"
+			size="icon"
+			className="size-10"
+			onClick={toggle}
+		>
 			<i className="hgi hgi-stroke hgi-layout-left text-lg font-semibold" />
 		</Button>
 	);

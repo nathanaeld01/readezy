@@ -35,12 +35,21 @@ export const Topbar = () => {
 			<div className="flex items-center gap-2">
 				<SidebarTrigger />
 			</div>
-			<div className="flex items-center gap-2">
+			<div className="flex items-center gap-4">
+				<Link
+					className="relative inline-flex size-10 items-center justify-center rounded-full transition-[background] duration-150 hover:bg-muted"
+					href="/notifications"
+				>
+					<i className="hgi hgi-stroke hgi-notification-01 text-lg" />
+					<span className="absolute top-0 right-0 flex size-4 items-center justify-center rounded-full bg-destructive text-xs/none text-foreground">
+						3
+					</span>
+				</Link>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Avatar>
+						<Avatar className="size-10">
 							<AvatarImage
-								className="cursor-pointer"
+								className="size-10 cursor-pointer"
 								src="https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611765.jpg"
 							/>
 						</Avatar>
