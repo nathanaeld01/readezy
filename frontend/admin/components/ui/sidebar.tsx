@@ -174,7 +174,7 @@ const SidebarMenuLink = ({
 		<Link
 			className={cn(
 				'inline-flex h-11 w-full flex-nowrap items-center overflow-hidden border border-transparent px-3 text-sm/none whitespace-nowrap text-sidebar-foreground transition-[width,background,color] duration-[250ms,150ms,150ms] hover:border-sidebar-border hover:bg-sidebar-accent group-compact-collapsed:w-11',
-				url.startsWith(href) &&
+				href.startsWith(url) &&
 					'bg-sidebar-primary text-sidebar-primary-foreground hover:border-transparent hover:bg-sidebar-primary/80',
 			)}
 			href={href}
