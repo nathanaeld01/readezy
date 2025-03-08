@@ -55,6 +55,7 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
     'domains' => [
         'web' => env('APP_DOMAIN_WEB', 'http://localhost'),
+        'api' => env('APP_DOMAIN_API', 'http://api.localhost'),
         'admin' => env('APP_DOMAIN_ADMIN', 'http://admin.localhost'),
     ],
 
