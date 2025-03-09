@@ -6,8 +6,9 @@
 
 @custom-variant dark (&:is(.dark *));
 @custom-variant icon-collapsed ([data-variant='compact'][data-state='collapsed'] &);
-@custom-variant icon-child (& > i.hgi);
-@custom-variant icon (&:is(i.hgi));
+@custom-variant closed (&:is([data-state='closed']));
+@custom-variant open (&:is([data-state='open']));
+@custom-variant icon (&:is(i.hgi), & > i.hgi);
 
 @theme inline {
 	--color-background: var(--background);
