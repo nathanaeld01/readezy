@@ -15,6 +15,7 @@ import {
 	TooltipTrigger,
 	TooltipContent,
 } from './tooltip';
+import { Sheet, SheetContent } from './sheet';
 
 const SidebarContext = createContext<ReturnType<typeof useSidebarStore> | null>(
 	null,
@@ -50,7 +51,7 @@ const SidebarProvider = ({
 			<TooltipProvider>
 				<div
 					className={cn(
-						'group/wrapper grid size-full grid-cols-sidebar',
+						'group/wrapper size-full md:grid md:grid-cols-sidebar',
 						className,
 					)}
 				>
@@ -67,7 +68,16 @@ const Sidebar = ({
 }: SidebarDefaultProps & {
 	rail?: boolean;
 }) => {
-	const { state, variant } = useSidebar();
+	const { state, variant, isMobile, isOpenMobile, setOpenMobile } =
+		useSidebar();
+
+	if (isMobile) {
+		return (
+			<Sheet open={isOpenMobile} onOpenChange={setOpenMobile}>
+				<SheetContent variant="sidebar">{children}</SheetContent>
+			</Sheet>
+		);
+	}
 
 	return (
 		<aside
