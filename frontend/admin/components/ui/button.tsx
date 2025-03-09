@@ -4,26 +4,31 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '~/lib/utils';
 
+type Props = React.ComponentProps<'button'> &
+	VariantProps<typeof buttonVariants> & {
+		asChild?: boolean;
+	};
+
 const buttonVariants = cva(
-	"inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+	'inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 text-sm leading-none font-medium whitespace-nowrap transition-[color,background] duration-200 outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive icon-child:pointer-events-none',
 	{
 		variants: {
 			variant: {
 				default:
-					'bg-primary text-primary-foreground shadow-xs hover:bg-primary/90',
-				destructive:
-					'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
-				outline:
-					'border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground',
+					'bg-primary text-primary-foreground hover:bg-primary/80',
 				secondary:
-					'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
+					'bg-accent text-accent-foreground hover:bg-accent/80',
+				destructive:
+					'bg-destructive text-white hover:bg-destructive/80 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40',
+				outlined:
+					'border border-primary/30 bg-transparent text-primary hover:bg-muted',
 				ghost: 'hover:bg-muted hover:text-foreground',
-				link: 'text-primary underline-offset-4 hover:underline',
+				link: 'text-primary underline underline-offset-4',
 			},
 			size: {
-				default: 'h-9 px-4 py-2 has-[>svg]:px-3',
-				sm: 'h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5',
-				lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
+				default: 'h-9 px-4.5 icon-child:text-lg',
+				sm: 'h-8 px-4 icon-child:text-base',
+				lg: 'h-10 px-5 icon-child:text-lg',
 				icon: 'size-9',
 			},
 		},
@@ -34,16 +39,13 @@ const buttonVariants = cva(
 	},
 );
 
-function Button({
+const Button = ({
 	className,
 	variant,
 	size,
 	asChild = false,
 	...props
-}: React.ComponentProps<'button'> &
-	VariantProps<typeof buttonVariants> & {
-		asChild?: boolean;
-	}) {
+}: Props) => {
 	const Comp = asChild ? Slot : 'button';
 
 	return (
@@ -53,6 +55,6 @@ function Button({
 			{...props}
 		/>
 	);
-}
+};
 
 export { Button, buttonVariants };

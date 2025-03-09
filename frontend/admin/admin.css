@@ -5,7 +5,9 @@
 @plugin "tailwindcss-animate";
 
 @custom-variant dark (&:is(.dark *));
-@custom-variant group-compact-collapsed ([data-variant='compact'][data-state='collapsed'] &);
+@custom-variant icon-collapsed ([data-variant='compact'][data-state='collapsed'] &);
+@custom-variant icon-child (& > i.hgi);
+@custom-variant icon (&:is(i.hgi));
 
 @theme inline {
 	--color-background: var(--background);
@@ -97,13 +99,11 @@
 		--card-foreground: hsl(0, 0%, 96%);
 		--border: oklch(28.69% 0 0);
 		--input: hsl(0 0% 89.8%);
-		--primary: hsl(0 0% 9.41%);
-		--primary-foreground: hsl(0 0% 98%);
-		--secondary: hsl(0 0% 92.16%);
-		--secondary-foreground: hsl(0 0% 9%);
+		--primary: hsl(0, 0%, 91%);
+		--primary-foreground: hsl(0, 0%, 11%);
 		--accent: oklch(29.31% 0 0);
 		--accent-foreground: oklch(96.66% 0.0026 106.45);
-		--destructive: hsl(0 100% 68.24%);
+		--destructive: oklch(64.25% 0.2227 26.16);
 		--destructive-foreground: hsl(0 0% 100%);
 		--ring: hsl(0 0% 3.9%);
 		--chart-1: hsl(0, 0%, 100%);

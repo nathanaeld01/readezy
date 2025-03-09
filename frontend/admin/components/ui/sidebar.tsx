@@ -140,7 +140,7 @@ const SidebarGroupTitle = ({ className, children }: SidebarDefaultProps) => {
 	return (
 		<div
 			className={cn(
-				'flex h-8 items-center text-xs/none text-sidebar-foreground transition-[opacity,height,margin] duration-150 group-compact-collapsed:-mt-2 group-compact-collapsed:h-0 group-compact-collapsed:opacity-0',
+				'flex h-8 items-center text-xs/none text-sidebar-foreground transition-[opacity,height,margin] duration-150 icon-collapsed:-mt-2 icon-collapsed:h-0 icon-collapsed:opacity-0',
 				className,
 			)}
 		>
@@ -170,11 +170,13 @@ const SidebarMenuLink = ({
 	const { variant } = useSidebar();
 	const { url } = usePage();
 
+	const active = url === href || (url.startsWith(href) && href !== '/');
+
 	const item = (
 		<Link
 			className={cn(
-				'inline-flex h-11 w-full flex-nowrap items-center overflow-hidden border border-transparent px-3 text-sm/none whitespace-nowrap text-sidebar-foreground transition-[width,background,color] duration-[250ms,150ms,150ms] hover:border-sidebar-border hover:bg-sidebar-accent group-compact-collapsed:w-11',
-				href.startsWith(url) &&
+				'inline-flex h-11 w-full flex-nowrap items-center overflow-hidden border border-transparent px-3 text-sm/none whitespace-nowrap text-sidebar-foreground transition-[width,background,color] duration-[250ms,150ms,150ms] hover:border-sidebar-border hover:bg-sidebar-accent icon-collapsed:w-11',
+				active &&
 					'bg-sidebar-primary text-sidebar-primary-foreground hover:border-transparent hover:bg-sidebar-primary/80',
 			)}
 			href={href}
@@ -187,7 +189,7 @@ const SidebarMenuLink = ({
 					)}
 				/>
 			)}
-			<span className="inline-block w-full group-compact-collapsed:hidden">
+			<span className="inline-block w-full icon-collapsed:hidden">
 				{children}
 			</span>
 		</Link>
@@ -200,7 +202,7 @@ const SidebarMenuLink = ({
 				<TooltipContent
 					align="center"
 					side="right"
-					className="ml-2.5 hidden h-9 min-w-20 items-center justify-center border border-sidebar-border bg-sidebar-background text-sm/none group-compact-collapsed:inline-flex"
+					className="ml-2.5 hidden h-9 min-w-20 items-center justify-center border border-sidebar-border bg-sidebar-background text-sm/none icon-collapsed:inline-flex"
 				>
 					{tooltip}
 				</TooltipContent>
