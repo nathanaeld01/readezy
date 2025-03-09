@@ -11,7 +11,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 // 						'inset-x-0 bottom-0 h-auto border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom',
 
 const sheetVariants = cva(
-	'fixed z-50 flex flex-col shadow-lg transition open:animate-in closed:animate-out',
+	'fixed z-50 flex flex-col shadow-lg transition open:animate-in focus-visible:outline-none closed:animate-out',
 	{
 		variants: {
 			variant: {

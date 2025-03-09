@@ -27,8 +27,7 @@ const sidebarStore = create<SidebarState>((set, get) => ({
 		set({ isOpen: value, state: value ? 'expanded' : 'collapsed' });
 		document.cookie = `${SIDEBAR_COOKIE_NAME}=${value}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
 	},
-	setOpenMobile: value =>
-		set({ isOpenMobile: value, state: value ? 'expanded' : 'collapsed' }),
+	setOpenMobile: value => set({ isOpenMobile: value }),
 	toggle: () => {
 		const { isOpen, isOpenMobile, setOpen, setOpenMobile } = get();
 		if (window.matchMedia('(max-width: 768px)').matches) {
