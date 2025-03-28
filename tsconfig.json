@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "jsx": "react-jsx",
+        "strict": true,
+        "isolatedModules": true,
+        "target": "ESNext",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "noEmit": true,
+        "baseUrl": ".", // Added for clarity with paths
+        "resolveJsonModule": true, // Optional: Enable JSON imports
+        "noUnusedLocals": true, // Optional: Enforce cleaner code
+        "noUnusedParameters": true,
+        "paths": {
+            "@/*": ["./resources/*"],
+        }
+    },
+    "include": [
+        "resources/**/*.tsx",
+        "resources/**/*.ts",
+        "**/*.config.js",
+        "**/*.config.ts",
+        "**/*.config.mjs",
+    ],
+    "exclude": ["node_modules"]
+}
