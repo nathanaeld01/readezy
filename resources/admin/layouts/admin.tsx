@@ -1,14 +1,14 @@
-import { SidebarProvider } from '../components/ui/sidebar';
-import { cn } from '@/admin/lib/utils';
 import { AppSidebar } from '../components/layout/sidebar';
 import { Topbar } from '../components/layout/topbar';
+import { SidebarProvider } from '../components/ui/sidebar';
+import { cn } from '@/admin/lib/utils';
 
 type Props = {
-	className?: string;
 	children?: React.ReactNode;
+	className?: string;
 };
 
-export const AdminLayout = ({ className, children }: Props) => {
+export const AdminLayout = ({ children, className }: Props) => {
 	return (
 		<SidebarProvider variant="compact">
 			<AppSidebar />

@@ -1,5 +1,10 @@
-import { useMemo, useId } from 'react';
-import { ResponsiveContainer, LineChart, Line, Dot, type DotProps } from 'recharts';
+import { useId, useMemo } from 'react';
+import { Dot, type DotProps, Line, LineChart, ResponsiveContainer } from 'recharts';
+
+type CustomDotProps = DotProps & {
+	dotColor: string;
+	isLastPoint: boolean;
+};
 
 type DataPoint = { name: string; pv: number };
 
@@ -9,14 +14,9 @@ type Props = {
 	reverseGradient?: boolean;
 };
 
-type CustomDotProps = DotProps & {
-	isLastPoint: boolean;
-	dotColor: string;
-};
-
-const CustomDot = ({ cx, cy, isLastPoint, dotColor }: CustomDotProps) => {
+const CustomDot = ({ cx, cy, dotColor, isLastPoint }: CustomDotProps) => {
 	return isLastPoint ? (
-		<Dot cx={cx} cy={cy} r={4} fill="var(--card)" stroke={dotColor} strokeWidth={2} />
+		<Dot cx={cx} cy={cy} fill="var(--card)" r={4} stroke={dotColor} strokeWidth={2} />
 	) : null;
 };
 
@@ -35,7 +35,7 @@ export const TrendLineChart = ({ data, gradientLength = 5, reverseGradient = fal
 	const gradientId = useId();
 	const gradientStops = useMemo(
 		() => (
-			<linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
+			<linearGradient id={gradientId} x1="0%" x2="100%" y1="0%" y2="0%">
 				<stop offset="0%" stopColor="white" />
 				<stop offset={`${startGradient}%`} stopColor="white" />
 				<stop
@@ -49,14 +49,11 @@ export const TrendLineChart = ({ data, gradientLength = 5, reverseGradient = fal
 	);
 
 	return (
-		<ResponsiveContainer width="100%" height={80}>
+		<ResponsiveContainer height={80} width="100%">
 			<LineChart data={data}>
 				<defs>{gradientStops}</defs>
 				<Line
-					type="monotone"
 					dataKey="pv"
-					stroke={`url(#${gradientId})`}
-					strokeWidth={2}
 					dot={props => {
 						// eslint-disable-next-line react/prop-types
 						const { key, ...rest } = props;
@@ -64,14 +61,17 @@ export const TrendLineChart = ({ data, gradientLength = 5, reverseGradient = fal
 							<CustomDot
 								key={key}
 								{...rest}
+								dotColor={dotColor}
 								isLastPoint={
 									// eslint-disable-next-line react/prop-types
 									!!(props.payload.name === lastPoint.name)
 								}
-								dotColor={dotColor}
 							/>
 						);
 					}}
+					stroke={`url(#${gradientId})`}
+					strokeWidth={2}
+					type="monotone"
 				/>
 			</LineChart>
 		</ResponsiveContainer>

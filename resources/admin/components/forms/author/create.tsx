@@ -1,39 +1,39 @@
+import { router } from '@inertiajs/react';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import axios, { type AxiosError } from 'axios';
-import { router } from '@inertiajs/react';
 
-import { type CreateAuthor, createAuthorValidator } from '@/admin/lib/validators/author';
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
 import { Label } from '../../ui/label';
 import { Textarea } from '../../ui/textarea';
+import { type CreateAuthor, createAuthorValidator } from '@/admin/lib/validators/author';
 
 export const CreateAuthorForm = ({ onSubmit }: { onSubmit?: () => void }) => {
 	const { mutateAsync: createAuthor } = useMutation<CreateAuthor, AxiosError, CreateAuthor>({
-		mutationKey: ['create-author'],
 		mutationFn: async values => (await axios.postForm('/api/author', values)).data,
+		mutationKey: ['create-author'],
 		onError: error => console.log(error.response?.data),
 		onSuccess: () => {
 			router.reload({ only: ['authors', 'pagination'] });
 		},
 	});
 
-	const { handleSubmit, Field, Subscribe } = useForm({
+	const { Field, handleSubmit, Subscribe } = useForm({
 		defaultValues: {
-			title: '',
-			description: '',
 			date_of_birth: '',
-			nationality: '',
 			date_of_death: undefined,
+			description: '',
+			nationality: '',
+			title: '',
 			website_url: undefined,
 		} as CreateAuthor,
-		validators: {
-			onSubmit: createAuthorValidator,
-		},
 		onSubmit: async ({ value }) => {
 			await createAuthor(value);
 			onSubmit?.();
+		},
+		validators: {
+			onSubmit: createAuthorValidator,
 		},
 	});
 
@@ -46,15 +46,15 @@ export const CreateAuthorForm = ({ onSubmit }: { onSubmit?: () => void }) => {
 	return (
 		<form className="flex flex-col gap-4" onSubmit={submitHandler}>
 			<Field name="title">
-				{({ state, handleChange }) => (
+				{({ handleChange, state }) => (
 					<div className="space-y-1.5">
 						<Label htmlFor="name">Name</Label>
 						<Input
 							id="name"
-							type="text"
-							placeholder="Author Name"
-							value={state.value}
 							onChange={e => handleChange(e.target.value)}
+							placeholder="Author Name"
+							type="text"
+							value={state.value}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -65,14 +65,14 @@ export const CreateAuthorForm = ({ onSubmit }: { onSubmit?: () => void }) => {
 				)}
 			</Field>
 			<Field name="image">
-				{({ state, handleChange }) => (
+				{({ handleChange, state }) => (
 					<div className="space-y-1.5">
 						<Label htmlFor="image">Image</Label>
 						<Input
-							id="image"
-							type="file"
 							accept="image/png, image/jpeg, image/jpg, image/webp"
+							id="image"
 							onChange={e => handleChange(e.target.files![0])}
+							type="file"
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -83,14 +83,14 @@ export const CreateAuthorForm = ({ onSubmit }: { onSubmit?: () => void }) => {
 				)}
 			</Field>
 			<Field name="description">
-				{({ state, handleChange }) => (
+				{({ handleChange, state }) => (
 					<div className="space-y-1.5">
 						<Label htmlFor="description">Description</Label>
 						<Textarea
 							id="description"
+							onChange={e => handleChange(e.target.value)}
 							placeholder="Author Description"
 							value={state.value}
-							onChange={e => handleChange(e.target.value)}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -101,14 +101,14 @@ export const CreateAuthorForm = ({ onSubmit }: { onSubmit?: () => void }) => {
 				)}
 			</Field>
 			<Field name="date_of_birth">
-				{({ state, handleChange }) => (
+				{({ handleChange, state }) => (
 					<div className="space-y-1.5">
 						<Label htmlFor="date_of_birth">Date of Birth</Label>
 						<Input
 							id="date_of_birth"
+							onChange={e => handleChange(e.target.value)}
 							type="date"
 							value={state.value}
-							onChange={e => handleChange(e.target.value)}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -119,14 +119,14 @@ export const CreateAuthorForm = ({ onSubmit }: { onSubmit?: () => void }) => {
 				)}
 			</Field>
 			<Field name="date_of_death">
-				{({ state, handleChange }) => (
+				{({ handleChange, state }) => (
 					<div className="space-y-1.5">
 						<Label htmlFor="date_of_death">Date of Death</Label>
 						<Input
 							id="date_of_death"
+							onChange={e => handleChange(e.target.value)}
 							type="date"
 							value={state.value}
-							onChange={e => handleChange(e.target.value)}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -137,14 +137,14 @@ export const CreateAuthorForm = ({ onSubmit }: { onSubmit?: () => void }) => {
 				)}
 			</Field>
 			<Field name="nationality">
-				{({ state, handleChange }) => (
+				{({ handleChange, state }) => (
 					<div className="space-y-1.5">
 						<Label htmlFor="nationality">Nationality</Label>
 						<Input
 							id="nationality"
+							onChange={e => handleChange(e.target.value)}
 							placeholder="Author Nationality"
 							value={state.value}
-							onChange={e => handleChange(e.target.value)}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -155,14 +155,14 @@ export const CreateAuthorForm = ({ onSubmit }: { onSubmit?: () => void }) => {
 				)}
 			</Field>
 			<Field name="website_url">
-				{({ state, handleChange }) => (
+				{({ handleChange, state }) => (
 					<div className="space-y-1.5">
 						<Label htmlFor="website_url">Website Link</Label>
 						<Input
 							id="website_url"
+							onChange={e => handleChange(e.target.value)}
 							placeholder="Author Website"
 							value={state.value}
-							onChange={e => handleChange(e.target.value)}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -174,7 +174,7 @@ export const CreateAuthorForm = ({ onSubmit }: { onSubmit?: () => void }) => {
 			</Field>
 			<Subscribe selector={state => [state.canSubmit, state.isSubmitting]}>
 				{([canSubmit, isSubmitting]) => (
-					<Button type="submit" disabled={!canSubmit || isSubmitting}>
+					<Button disabled={!canSubmit || isSubmitting} type="submit">
 						{isSubmitting ? 'Creating...' : 'Create Author'}
 					</Button>
 				)}

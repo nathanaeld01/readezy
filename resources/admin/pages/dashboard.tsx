@@ -1,7 +1,8 @@
 import { Head } from '@inertiajs/react';
-import { AdminLayout } from '../layouts';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+
 import { MetricCard } from '../components/dashboard/metric-card';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { AdminLayout } from '../layouts';
 
 export default function Dashboard() {
 	return (
@@ -9,8 +10,6 @@ export default function Dashboard() {
 			<Head title="Dashboard" />
 			<div className="@container grid grid-cols-12 gap-4">
 				<MetricCard
-					title="Revenue"
-					value="$50,012"
 					data={[
 						{ name: 'Jan', pv: 2400 },
 						{ name: 'Feb', pv: 1398 },
@@ -25,10 +24,10 @@ export default function Dashboard() {
 						{ name: 'Nov', pv: 3908 },
 						{ name: 'Dec', pv: 4800 },
 					]}
+					title="Revenue"
+					value="$50,012"
 				/>
 				<MetricCard
-					title="Orders"
-					value={210}
 					data={[
 						{ name: 'Jan', pv: 300 },
 						{ name: 'Feb', pv: 370 },
@@ -43,10 +42,10 @@ export default function Dashboard() {
 						{ name: 'Nov', pv: 260 },
 						{ name: 'Dec', pv: 215 },
 					]}
+					title="Orders"
+					value={210}
 				/>
 				<MetricCard
-					title="Refunds"
-					value="$1,990"
 					data={[
 						{ name: 'Jan', pv: 169 },
 						{ name: 'Feb', pv: 263 },
@@ -62,10 +61,10 @@ export default function Dashboard() {
 						{ name: 'Dec', pv: 79 },
 					]}
 					reverse
+					title="Refunds"
+					value="$1,990"
 				/>
 				<MetricCard
-					title="Users"
-					value={3955}
 					data={[
 						{ name: 'Jan', pv: 200 },
 						{ name: 'Feb', pv: 370 },
@@ -80,6 +79,8 @@ export default function Dashboard() {
 						{ name: 'Nov', pv: 260 },
 						{ name: 'Dec', pv: 327 },
 					]}
+					title="Users"
+					value={3955}
 				/>
 			</div>
 			<div className="grid grid-cols-12 gap-4">

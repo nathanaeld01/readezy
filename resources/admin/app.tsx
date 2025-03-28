@@ -21,10 +21,10 @@ axios.interceptors.response.use(
 );
 
 createInertiaApp({
-	title: title => (title ? `${title} | ${appName}` : appName),
+	progress: false,
 	resolve: name =>
 		resolvePageComponent(`./pages/${name}.tsx`, import.meta.glob('./pages/**/*.tsx')),
-	setup({ el, App, props }) {
+	setup({ App, el, props }) {
 		if (import.meta.env.SSR) {
 			hydrateRoot(el, <App {...props} />);
 			return;
@@ -36,7 +36,7 @@ createInertiaApp({
 			</QueryClientProvider>,
 		);
 	},
-	progress: false,
+	title: title => (title ? `${title} | ${appName}` : appName),
 });
 
 window.route = route;

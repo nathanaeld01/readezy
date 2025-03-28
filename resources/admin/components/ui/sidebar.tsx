@@ -1,18 +1,18 @@
-import { createContext, useContext } from 'react';
 import { Link } from '@inertiajs/react';
+import { createContext, useContext } from 'react';
 
+import { Button } from './button';
+import { Sheet, SheetModal } from './sheet';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 import { useSidebarStore } from '@/admin/context/sidebar';
+import { cn } from '@/admin/lib/utils';
 import type {
 	SidebarDefaultProps,
 	SidebarLinkProps,
 	SidebarProviderProps,
 } from '@/admin/types/sidebar';
-import { Button } from './button';
-import { cn } from '@/admin/lib/utils';
-import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from './tooltip';
-import { Sheet, SheetModal } from './sheet';
 
-const SidebarContext = createContext<ReturnType<typeof useSidebarStore> | null>(null);
+const SidebarContext = createContext<null | ReturnType<typeof useSidebarStore>>(null);
 
 const useSidebar = () => {
 	const context = useContext(SidebarContext);
@@ -22,20 +22,20 @@ const useSidebar = () => {
 };
 
 const SidebarProvider = ({
-	open,
+	children,
+	className,
 	defaultOpen,
 	onOpenChange,
-	className,
+	open,
 	variant = 'default',
-	children,
 }: SidebarProviderProps & {
-	variant?: 'default' | 'compact';
+	variant?: 'compact' | 'default';
 }) => {
 	const store = useSidebarStore({
-		open,
-		variant,
 		defaultOpen,
 		onOpenChange,
+		open,
+		variant,
 	});
 
 	return (
@@ -55,16 +55,16 @@ const SidebarProvider = ({
 };
 
 const Sidebar = ({
-	rail = false,
 	children,
+	rail = false,
 }: SidebarDefaultProps & {
 	rail?: boolean;
 }) => {
-	const { state, variant, isMobile, isOpenMobile, setOpenMobile } = useSidebar();
+	const { isMobile, isOpenMobile, setOpenMobile, state, variant } = useSidebar();
 
 	if (isMobile) {
 		return (
-			<Sheet open={isOpenMobile} onOpenChange={setOpenMobile}>
+			<Sheet onOpenChange={setOpenMobile} open={isOpenMobile}>
 				<SheetModal variant="sidebar">{children}</SheetModal>
 			</Sheet>
 		);
@@ -89,7 +89,7 @@ const SidebarTrigger = () => {
 	const { toggle } = useSidebar();
 
 	return (
-		<Button variant="ghost" size="icon" className="size-10" onClick={toggle}>
+		<Button className="size-10" onClick={toggle} size="icon" variant="ghost">
 			<i className="hgi hgi-stroke hgi-layout-left text-lg font-semibold" />
 		</Button>
 	);
@@ -100,18 +100,18 @@ const SidebarRail = () => {
 
 	return (
 		<button
-			type="button"
 			className="absolute top-0 left-full z-1 h-full w-1 border-r-2 border-transparent transition-[border] duration-150 hover:cursor-w-resize hover:border-sidebar-border"
 			onClick={toggle}
+			type="button"
 		/>
 	);
 };
 
-const SidebarHeader = ({ className, children }: SidebarDefaultProps) => (
+const SidebarHeader = ({ children, className }: SidebarDefaultProps) => (
 	<div className={cn('h-16 border-b border-sidebar-border', className)}>{children}</div>
 );
 
-const SidebarContent = ({ className, children }: SidebarDefaultProps) => {
+const SidebarContent = ({ children, className }: SidebarDefaultProps) => {
 	return (
 		<div className={cn('flex h-full flex-col gap-4 overflow-y-auto py-4', className)}>
 			{children}
@@ -119,11 +119,11 @@ const SidebarContent = ({ className, children }: SidebarDefaultProps) => {
 	);
 };
 
-const SidebarGroup = ({ className, children }: SidebarDefaultProps) => {
+const SidebarGroup = ({ children, className }: SidebarDefaultProps) => {
 	return <div className={cn('relative w-full px-4', className)}>{children}</div>;
 };
 
-const SidebarGroupTitle = ({ className, children }: SidebarDefaultProps) => {
+const SidebarGroupTitle = ({ children, className }: SidebarDefaultProps) => {
 	return (
 		<div
 			className={cn(
@@ -148,7 +148,7 @@ const SidebarMenuItem = ({ children }: SidebarDefaultProps) => {
 	return <li className="relative">{children}</li>;
 };
 
-const SidebarMenuLink = ({ href, icon, tooltip, children }: SidebarLinkProps) => {
+const SidebarMenuLink = ({ children, href, icon, tooltip }: SidebarLinkProps) => {
 	const { variant } = useSidebar();
 	const active = route().current(href.replace(/index$/, '*'));
 
@@ -172,8 +172,8 @@ const SidebarMenuLink = ({ href, icon, tooltip, children }: SidebarLinkProps) =>
 				<TooltipTrigger asChild>{item}</TooltipTrigger>
 				<TooltipContent
 					align="center"
-					side="right"
 					className="ml-2.5 hidden h-9 min-w-20 items-center justify-center border border-sidebar-border bg-sidebar-background text-sm/none icon-collapsed:inline-flex"
+					side="right"
 				>
 					{tooltip}
 				</TooltipContent>
@@ -185,15 +185,15 @@ const SidebarMenuLink = ({ href, icon, tooltip, children }: SidebarLinkProps) =>
 };
 
 export {
-	SidebarProvider,
 	Sidebar,
-	SidebarTrigger,
-	SidebarHeader,
 	SidebarContent,
 	SidebarGroup,
-	SidebarGroupTitle,
 	SidebarGroupContent,
+	SidebarGroupTitle,
+	SidebarHeader,
 	SidebarMenu,
 	SidebarMenuItem,
 	SidebarMenuLink,
+	SidebarProvider,
+	SidebarTrigger,
 };

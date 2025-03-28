@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-objects */
 import { cva, VariantProps } from 'class-variance-authority';
 
 const buttonVariants = cva(

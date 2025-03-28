@@ -1,55 +1,54 @@
-import { createColumnHelper, type OnChangeFn, type RowSelectionState } from '@tanstack/react-table';
 import { Link, usePage } from '@inertiajs/react';
+import { createColumnHelper, type OnChangeFn, type RowSelectionState } from '@tanstack/react-table';
 
 import { Checkbox } from '../ui/checkbox';
 import { DataTable, DataTableBody, DataTableHeader } from '../ui/data-table';
 
 type Author = {
+	image_url: string;
 	slug: string;
 	title: string;
-	image_url: string;
 };
 
 const columnHelper = createColumnHelper<Author>();
 const columns = [
 	columnHelper.group({
-		id: 'select',
+		cell: ({ row }) => (
+			<Checkbox
+				aria-label="Select row"
+				checked={row.getIsSelected()}
+				onCheckedChange={value => row.toggleSelected(!!value)}
+			/>
+		),
+		enableHiding: false,
+		enableSorting: false,
 		header: ({ table }) => (
 			<Checkbox
+				aria-label="Select all"
 				checked={
 					table.getIsAllPageRowsSelected() ||
 					(table.getIsSomePageRowsSelected() && 'indeterminate')
 				}
 				onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-				aria-label="Select all"
 			/>
 		),
-		cell: ({ row }) => (
-			<Checkbox
-				checked={row.getIsSelected()}
-				onCheckedChange={value => row.toggleSelected(!!value)}
-				aria-label="Select row"
-			/>
-		),
-		enableSorting: false,
-		enableHiding: false,
+		id: 'select',
 	}),
 	columnHelper.accessor('image_url', {
-		header: 'Image',
-		cell: ({ row, cell }) => (
+		cell: ({ cell, row }) => (
 			<img
+				alt={row.original.title}
 				className="inline size-10 rounded-full object-cover"
 				src={cell.getValue()}
-				alt={row.original.title}
 			/>
 		),
+		header: 'Image',
 		meta: {
 			className: 'w-20 text-center',
 		},
 	}),
 	columnHelper.accessor('title', {
-		header: 'Name',
-		cell: ({ row, cell }) => (
+		cell: ({ cell, row }) => (
 			<Link
 				className="underline underline-offset-2"
 				href={route('admin.authors.show', row.original.slug)}
@@ -57,29 +56,30 @@ const columns = [
 				{cell.getValue()}
 			</Link>
 		),
+		header: 'Name',
 	}),
 ];
 
 export const ViewAuthorsTable = ({
-	selected: rowSelection,
 	onSelect: setRowSelection,
+	selected: rowSelection,
 }: {
-	selected: RowSelectionState;
 	onSelect: OnChangeFn<RowSelectionState>;
+	selected: RowSelectionState;
 }) => {
 	const { authors } = usePage().props;
 
 	return (
 		<DataTable
-			data={authors as Author[]}
 			columns={columns}
+			data={authors as Author[]}
 			options={{
+				enableRowSelection: true,
+				getRowId: original => original.slug,
+				onRowSelectionChange: setRowSelection,
 				state: {
 					rowSelection,
 				},
-				enableRowSelection: true,
-				onRowSelectionChange: setRowSelection,
-				getRowId: original => original.slug,
 			}}
 		>
 			{table => (

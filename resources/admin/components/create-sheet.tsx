@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Sheet, SheetContent, SheetHeader, SheetModal, SheetTitle, SheetTrigger } from './ui/sheet';
 import { Button } from './ui/button';
+import { Sheet, SheetContent, SheetHeader, SheetModal, SheetTitle, SheetTrigger } from './ui/sheet';
 
 type ChildrenProps = {
 	open: boolean;
@@ -9,16 +9,16 @@ type ChildrenProps = {
 };
 
 type Props = {
+	children: ({ open, setOpen }: ChildrenProps) => React.ReactNode;
 	title: string;
 	trigger: string;
-	children: ({ open, setOpen }: ChildrenProps) => React.ReactNode;
 };
 
-export const CreateSheet = ({ title, trigger, children }: Props) => {
+export const CreateSheet = ({ children, title, trigger }: Props) => {
 	const [open, setOpen] = useState(false);
 
 	return (
-		<Sheet open={open} onOpenChange={setOpen}>
+		<Sheet onOpenChange={setOpen} open={open}>
 			<SheetTrigger asChild>
 				<Button>
 					<i className="hgi hgi-stroke hgi-plus-sign" />

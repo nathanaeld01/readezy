@@ -1,9 +1,8 @@
-import { useForm, useStore } from '@tanstack/react-form';
 import { router } from '@inertiajs/react';
+import { useForm, useStore } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
 import axios, { type AxiosError } from 'axios';
 
-import { type DeleteAuthor } from '@/admin/lib/validators/author';
 import { Button } from '../../ui/button';
 import {
 	Dialog,
@@ -15,20 +14,21 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '../../ui/dialog';
+import { type DeleteAuthor } from '@/admin/lib/validators/author';
 
 export const DeleteAuthorsForm = ({
-	selectedAuthors,
 	onReset,
+	selectedAuthors,
 }: {
-	selectedAuthors: string[] | undefined;
 	onReset?: () => void;
+	selectedAuthors: string[] | undefined;
 }) => {
 	const { mutateAsync: deleteAuthor } = useMutation<DeleteAuthor, AxiosError, DeleteAuthor>({
-		mutationKey: ['delete-authors'],
 		mutationFn: async values =>
 			await axios.delete('/api/author', {
 				data: values,
 			}),
+		mutationKey: ['delete-authors'],
 		onSuccess: () => router.reload({ only: ['authors', 'pagination'] }),
 	});
 

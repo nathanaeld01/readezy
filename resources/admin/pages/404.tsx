@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react';
+
 import { AdminLayout } from '../layouts';
 
 export default function Error() {

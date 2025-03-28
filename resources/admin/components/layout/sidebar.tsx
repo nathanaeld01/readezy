@@ -22,8 +22,8 @@ export const AppSidebar = () => {
 					<SidebarMenu>
 						<SidebarMenuItem>
 							<SidebarMenuLink
-								icon="hgi-dashboard-square-02"
 								href="admin.dashboard"
+								icon="hgi-dashboard-square-02"
 								tooltip="Dashboard"
 							>
 								Dashboard
@@ -37,8 +37,8 @@ export const AppSidebar = () => {
 						<SidebarMenu>
 							<SidebarMenuItem>
 								<SidebarMenuLink
-									icon="hgi-quill-write-01"
 									href="admin.authors.index"
+									icon="hgi-quill-write-01"
 									tooltip="Authors"
 								>
 									Authors
@@ -46,8 +46,8 @@ export const AppSidebar = () => {
 							</SidebarMenuItem>
 							<SidebarMenuItem>
 								<SidebarMenuLink
-									icon="hgi-book-02"
 									href="admin.books.index"
+									icon="hgi-book-02"
 									tooltip="Books"
 								>
 									Books
@@ -55,8 +55,8 @@ export const AppSidebar = () => {
 							</SidebarMenuItem>
 							<SidebarMenuItem>
 								<SidebarMenuLink
-									icon="hgi-library"
 									href="admin.series.index"
+									icon="hgi-library"
 									tooltip="Series"
 								>
 									Series
@@ -64,8 +64,8 @@ export const AppSidebar = () => {
 							</SidebarMenuItem>
 							<SidebarMenuItem>
 								<SidebarMenuLink
-									icon="hgi-tag-02"
 									href="admin.genres.index"
+									icon="hgi-tag-02"
 									tooltip="Genres"
 								>
 									Genres
@@ -80,8 +80,8 @@ export const AppSidebar = () => {
 						<SidebarMenu>
 							<SidebarMenuItem>
 								<SidebarMenuLink
-									icon="hgi-user-group"
 									href="admin.users"
+									icon="hgi-user-group"
 									tooltip="Users"
 								>
 									Users
@@ -89,8 +89,8 @@ export const AppSidebar = () => {
 							</SidebarMenuItem>
 							<SidebarMenuItem>
 								<SidebarMenuLink
-									icon="hgi-shield-user"
 									href="admin.admins"
+									icon="hgi-shield-user"
 									tooltip="Admins"
 								>
 									Admins
@@ -98,8 +98,8 @@ export const AppSidebar = () => {
 							</SidebarMenuItem>
 							<SidebarMenuItem>
 								<SidebarMenuLink
-									icon="hgi-settings-02"
 									href="admin.settings"
+									icon="hgi-settings-02"
 									tooltip="Settings"
 								>
 									Settings

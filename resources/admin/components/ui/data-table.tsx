@@ -2,25 +2,26 @@ import {
 	flexRender,
 	getCoreRowModel,
 	type TableOptions,
-	useReactTable,
 	type Table as TableType,
+	useReactTable,
 } from '@tanstack/react-table';
-import { Table, TableRow, TableCell, TableHeader, TableHead, TableBody } from './table';
+
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './table';
 
 const DataTable = <TData,>({
-	data,
-	columns,
-	options,
 	children,
+	columns,
+	data,
+	options,
 }: {
-	data: TData[];
-	columns: TableOptions<TData>['columns'];
-	options?: Omit<TableOptions<TData>, 'data' | 'columns' | 'getCoreRowModel'>;
 	children: (table: TableType<TData>) => React.ReactNode;
+	columns: TableOptions<TData>['columns'];
+	data: TData[];
+	options?: Omit<TableOptions<TData>, 'columns' | 'data' | 'getCoreRowModel'>;
 }) => {
 	const table = useReactTable({
-		data,
 		columns,
+		data,
 		getCoreRowModel: getCoreRowModel(),
 		...options,
 	});
@@ -35,9 +36,9 @@ const DataTableHeader = <TData,>({ table }: { table: TableType<TData> }) => {
 				<TableRow key={headerGroup.id}>
 					{headerGroup.headers.map(header => (
 						<TableHead
-							key={header.id}
 							className={header.column.columnDef.meta?.className}
 							colSpan={header.colSpan}
+							key={header.id}
 						>
 							{header.isPlaceholder
 								? null
@@ -58,8 +59,8 @@ const DataTableBody = <TData,>({ table }: { table: TableType<TData> }) => {
 			{!rows.length ? (
 				<TableRow>
 					<TableCell
-						colSpan={table.getVisibleFlatColumns().length}
 						className="h-24 text-center"
+						colSpan={table.getVisibleFlatColumns().length}
 					>
 						No results.
 					</TableCell>
@@ -82,4 +83,4 @@ const DataTableBody = <TData,>({ table }: { table: TableType<TData> }) => {
 	);
 };
 
-export { DataTable, DataTableHeader, DataTableBody };
+export { DataTable, DataTableBody, DataTableHeader };

@@ -1,14 +1,14 @@
-import { TrendLineChart } from './trend-line-chart';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import { TrendLineChart } from './trend-line-chart';
 
 type Props = {
 	data: { name: string; pv: number }[];
+	reverse?: boolean;
 	title: string;
 	value: number | string;
-	reverse?: boolean;
 };
 
-export const MetricCard = ({ data, title, value, reverse }: Props) => (
+export const MetricCard = ({ data, reverse, title, value }: Props) => (
 	<Card className="col-span-full @lg:col-span-6 @4xl:col-span-3">
 		<CardHeader className="items-end justify-between">
 			<CardDescription className="font-space text-2xl text-foreground">

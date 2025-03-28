@@ -1,23 +1,23 @@
-import { useForm } from '@tanstack/react-form';
 import { router } from '@inertiajs/react';
+import { useForm } from '@tanstack/react-form';
 
-import { type Login, loginValidator } from '@/admin/lib/validators/auth';
-import { Label } from '../../ui/label';
-import { Input } from '../../ui/input';
 import { Button } from '../../ui/button';
 import { Checkbox } from '../../ui/checkbox';
+import { Input } from '../../ui/input';
+import { Label } from '../../ui/label';
+import { type Login, loginValidator } from '@/admin/lib/validators/auth';
 
 export const LoginForm = () => {
-	const { handleSubmit, Field, Subscribe } = useForm({
+	const { Field, handleSubmit, Subscribe } = useForm({
 		defaultValues: {
 			email: '',
 			password: '',
 			remember: false,
 		} as Login,
+		onSubmit: ({ value }) => router.post(route('admin.login'), value),
 		validators: {
 			onSubmit: loginValidator,
 		},
-		onSubmit: ({ value }) => router.post(route('admin.login'), value),
 	});
 
 	const submitHandler = async (e: React.FormEvent) => {
@@ -29,18 +29,18 @@ export const LoginForm = () => {
 	return (
 		<div className="m-auto h-fit w-full max-w-sm space-y-8">
 			<h1 className="text-center text-3xl font-semibold">Login</h1>
-			<form className="space-y-4" onSubmit={submitHandler} noValidate>
+			<form className="space-y-4" noValidate onSubmit={submitHandler}>
 				<Field name="email">
-					{({ state, handleChange }) => (
+					{({ handleChange, state }) => (
 						<div className="space-y-2">
 							<Label htmlFor="email">Email</Label>
 							<Input
+								autoComplete="off"
 								id="email"
+								onChange={e => handleChange(e.target.value)}
+								placeholder="Enter you email"
 								type="email"
 								value={state.value}
-								placeholder="Enter you email"
-								onChange={e => handleChange(e.target.value)}
-								autoComplete="off"
 							/>
 							{state.meta.errors && (
 								<p className="text-xs/none text-destructive/70">
@@ -51,15 +51,15 @@ export const LoginForm = () => {
 					)}
 				</Field>
 				<Field name="password">
-					{({ state, handleChange }) => (
+					{({ handleChange, state }) => (
 						<div className="space-y-2">
 							<Label htmlFor="password">Password</Label>
 							<Input
 								id="password"
+								onChange={e => handleChange(e.target.value)}
+								placeholder="Enter you password"
 								type="password"
 								value={state.value}
-								placeholder="Enter you password"
-								onChange={e => handleChange(e.target.value)}
 							/>
 							{state.meta.errors && (
 								<p className="text-xs/none text-destructive/70">
@@ -70,7 +70,7 @@ export const LoginForm = () => {
 					)}
 				</Field>
 				<Field name="remember">
-					{({ state, handleChange }) => (
+					{({ handleChange, state }) => (
 						<div className="flex gap-2">
 							<Checkbox
 								checked={state.value}

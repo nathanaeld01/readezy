@@ -1,8 +1,8 @@
-import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
+import * as React from 'react';
 
-import { cn } from '@/admin/lib/utils';
 import { Button } from './button';
+import { cn } from '@/admin/lib/utils';
 
 const Dialog = ({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) => {
 	return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -26,19 +26,19 @@ const DialogOverlay = ({
 }: React.ComponentProps<typeof DialogPrimitive.Overlay>) => {
 	return (
 		<DialogPrimitive.Overlay
-			data-slot="dialog-overlay"
 			className={cn(
 				'fixed inset-0 z-50 bg-black/50 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0',
 				className,
 			)}
+			data-slot="dialog-overlay"
 			{...props}
 		/>
 	);
 };
 
 const DialogContent = ({
-	className,
 	children,
+	className,
 	...props
 }: React.ComponentProps<typeof DialogPrimitive.Content>) => {
 	return (
@@ -59,18 +59,18 @@ const DialogContent = ({
 
 const DialogHeader = ({ className, ...props }: React.ComponentProps<'div'>) => {
 	return (
-		<div data-slot="dialog-header" className={cn('flex p-4 text-left', className)} {...props} />
+		<div className={cn('flex p-4 text-left', className)} data-slot="dialog-header" {...props} />
 	);
 };
 
 const DialogFooter = ({ className, ...props }: React.ComponentProps<'div'>) => {
 	return (
 		<div
-			data-slot="dialog-footer"
 			className={cn(
 				'flex flex-col-reverse p-4 sm:flex-row sm:justify-end sm:space-x-2',
 				className,
 			)}
+			data-slot="dialog-footer"
 			{...props}
 		/>
 	);
@@ -91,7 +91,7 @@ const DialogTitle = ({
 				{...props}
 			/>
 			<DialogClose asChild>
-				<Button className="size-8" variant="ghost" size="icon">
+				<Button className="size-8" size="icon" variant="ghost">
 					<i className="hgi hgi-stroke hgi-cancel-01 text-lg" />
 				</Button>
 			</DialogClose>
@@ -102,8 +102,8 @@ const DialogTitle = ({
 const DialogDescription = ({ className, ...props }: React.ComponentProps<'div'>) => {
 	return (
 		<div
-			data-slot="dialog-description"
 			className={cn('text-sm text-muted-foreground', className)}
+			data-slot="dialog-description"
 			{...props}
 		/>
 	);

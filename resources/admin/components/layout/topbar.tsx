@@ -14,14 +14,14 @@ import { SidebarTrigger } from '../ui/sidebar';
 import { cn } from '@/admin/lib/utils';
 
 type ItemProps = {
+	children: React.ReactNode;
 	href: string;
 	icon?: string;
-	children: React.ReactNode;
 };
 
-const DropdownLink = ({ href, icon, children }: ItemProps) => {
+const DropdownLink = ({ children, href, icon }: ItemProps) => {
 	return (
-		<DropdownMenuItem className="cursor-pointer gap-2" asChild>
+		<DropdownMenuItem asChild className="cursor-pointer gap-2">
 			<Link href={href}>
 				{icon && <i className={cn('hgi hgi-stroke text-lg', icon)} />}
 				<span>{children}</span>
@@ -56,7 +56,7 @@ export const Topbar = () => {
 								/>
 							</Avatar>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent side="bottom" align="end" className="mt-1 min-w-65">
+						<DropdownMenuContent align="end" className="mt-1 min-w-65" side="bottom">
 							<DropdownMenuGroup>
 								<DropdownMenuLabel className="flex flex-col gap-1 leading-none">
 									<span>Nathanael D&apos;Cunha</span>
@@ -67,19 +67,19 @@ export const Topbar = () => {
 							</DropdownMenuGroup>
 							<DropdownMenuSeparator />
 							<DropdownMenuGroup>
-								<DropdownLink icon="hgi-user" href="/profile">
+								<DropdownLink href="/profile" icon="hgi-user">
 									Profile
 								</DropdownLink>
 								<DropdownLink
-									icon="hgi-account-setting-01"
 									href="/profile/settings"
+									icon="hgi-account-setting-01"
 								>
 									Settings
 								</DropdownLink>
 							</DropdownMenuGroup>
 							<DropdownMenuSeparator />
 							<DropdownMenuGroup>
-								<DropdownLink icon="hgi-logout-01" href="/logout">
+								<DropdownLink href="/logout" icon="hgi-logout-01">
 									Logout
 								</DropdownLink>
 							</DropdownMenuGroup>

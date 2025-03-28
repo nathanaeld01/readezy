@@ -2,10 +2,10 @@ import { Head } from '@inertiajs/react';
 import { RowSelectionState } from '@tanstack/react-table';
 import { useState } from 'react';
 
-import { AdminLayout } from '@/admin/layouts';
+import { ViewAuthorsTable } from '@/admin/components/author/view-table';
 import { CreateSheet } from '@/admin/components/create-sheet';
 import { CreateAuthorForm, DeleteAuthorsForm } from '@/admin/components/forms/author';
-import { ViewAuthorsTable } from '@/admin/components/author/view-table';
+import { AdminLayout } from '@/admin/layouts';
 
 export default function Author() {
 	const [selectedAuthors, setSelectedAuthors] = useState<RowSelectionState>({});
@@ -25,7 +25,7 @@ export default function Author() {
 					</CreateSheet>
 				</div>
 			</div>
-			<ViewAuthorsTable selected={selectedAuthors} onSelect={setSelectedAuthors} />
+			<ViewAuthorsTable onSelect={setSelectedAuthors} selected={selectedAuthors} />
 		</>
 	);
 }

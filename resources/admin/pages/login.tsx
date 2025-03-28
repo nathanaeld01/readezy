@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
 
-import { GuestLayout } from '../layouts';
 import { LoginForm } from '../components/forms/auth/login';
+import { GuestLayout } from '../layouts';
 
 export default function Login() {
 	return (

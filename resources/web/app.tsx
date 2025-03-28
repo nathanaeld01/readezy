@@ -7,11 +7,11 @@ import { createRoot, hydrateRoot } from 'react-dom/client';
 const appName = 'ReadEzy';
 
 createInertiaApp({
-	title: title => (title ? `${title} | ${appName}` : appName),
+	progress: false,
 	resolve: name =>
 		resolvePageComponent(`./pages/${name}.tsx`, import.meta.glob('./pages/**/*.tsx')),
 
-	setup({ el, App, props }) {
+	setup({ App, el, props }) {
 		if (import.meta.env.SSR) {
 			hydrateRoot(el, <App {...props} />);
 			return;
@@ -19,5 +19,5 @@ createInertiaApp({
 
 		createRoot(el).render(<App {...props} />);
 	},
-	progress: false,
+	title: title => (title ? `${title} | ${appName}` : appName),
 });
