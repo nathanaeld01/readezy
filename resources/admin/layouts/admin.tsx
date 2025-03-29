@@ -1,3 +1,5 @@
+import { usePage } from '@inertiajs/react';
+
 import { AppSidebar } from '../components/layout/sidebar';
 import { Topbar } from '../components/layout/topbar';
 import { SidebarProvider } from '../components/ui/sidebar';
@@ -9,6 +11,9 @@ type Props = {
 };
 
 export const AdminLayout = ({ children, className }: Props) => {
+	const { auth } = usePage().props;
+	console.log(auth);
+
 	return (
 		<SidebarProvider variant="compact">
 			<AppSidebar />

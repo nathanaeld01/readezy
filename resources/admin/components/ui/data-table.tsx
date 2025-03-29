@@ -83,4 +83,20 @@ const DataTableBody = <TData,>({ table }: { table: TableType<TData> }) => {
 	);
 };
 
-export { DataTable, DataTableBody, DataTableHeader };
+const DataTableLoading = <TData,>({
+	children = 'Loading...',
+	table,
+}: {
+	children?: React.ReactNode;
+	table: TableType<TData>;
+}) => (
+	<TableBody>
+		<TableRow>
+			<TableCell className="h-24 text-center" colSpan={table.getVisibleFlatColumns().length}>
+				{children}
+			</TableCell>
+		</TableRow>
+	</TableBody>
+);
+
+export { DataTable, DataTableBody, DataTableHeader, DataTableLoading };

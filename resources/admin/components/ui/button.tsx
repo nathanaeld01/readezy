@@ -22,3 +22,4 @@ const Button = ({ asChild = false, className, size, variant, ...props }: Props) 
 };
 
 export { Button };
+export type { Props as ButtonProps };

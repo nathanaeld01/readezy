@@ -3,27 +3,49 @@ import * as React from 'react';
 
 import { Button } from './button';
 import { cn } from '@/admin/lib/utils';
+import { ChildrenType } from '@/admin/types';
 
-const Dialog = ({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) => {
-	return <DialogPrimitive.Root data-slot="dialog" {...props} />;
+const Dialog = ({
+	children,
+	onOpenChange: setOpenProp,
+	open: openProp,
+	...props
+}: ChildrenType<{ onClose: () => void; onOpen: () => void; onToggle: () => void }> &
+	Omit<DialogPrimitive.DialogProps, 'children'>) => {
+	const [open, setOpen] = React.useState(openProp);
+
+	const onOpen = () => setOpen(true);
+	const onClose = () => setOpen(false);
+	const onToggle = () => setOpen(prev => !prev);
+
+	return (
+		<DialogPrimitive.Root
+			data-slot="dialog"
+			onOpenChange={v => {
+				setOpenProp?.(v);
+				setOpen(v);
+			}}
+			open={open}
+			{...props}
+		>
+			{typeof children === 'function' ? children({ onClose, onOpen, onToggle }) : children}
+		</DialogPrimitive.Root>
+	);
 };
 
-const DialogTrigger = ({ ...props }: React.ComponentProps<typeof DialogPrimitive.Trigger>) => {
+const DialogTrigger = ({ ...props }: DialogPrimitive.DialogTriggerProps) => {
 	return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
 };
 
-const DialogPortal = ({ ...props }: React.ComponentProps<typeof DialogPrimitive.Portal>) => {
+const DialogPortal = ({ ...props }: DialogPrimitive.DialogPortalProps) => {
 	return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
 };
 
-const DialogClose = ({ ...props }: React.ComponentProps<typeof DialogPrimitive.Close>) => {
+const DialogClose = ({ ...props }: DialogPrimitive.DialogCloseProps) => {
 	return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
 };
 
-const DialogOverlay = ({
-	className,
-	...props
-}: React.ComponentProps<typeof DialogPrimitive.Overlay>) => {
+const DialogOverlay = ({ className, ...props }: DialogPrimitive.DialogOverlayProps) => {
 	return (
 		<DialogPrimitive.Overlay
 			className={cn(
@@ -36,11 +58,7 @@ const DialogOverlay = ({
 	);
 };
 
-const DialogContent = ({
-	children,
-	className,
-	...props
-}: React.ComponentProps<typeof DialogPrimitive.Content>) => {
+const DialogContent = ({ children, className, ...props }: DialogPrimitive.DialogContentProps) => {
 	return (
 		<DialogPortal>
 			<DialogOverlay />
@@ -76,10 +94,7 @@ const DialogFooter = ({ className, ...props }: React.ComponentProps<'div'>) => {
 	);
 };
 
-const DialogTitle = ({
-	className,
-	...props
-}: React.ComponentProps<typeof DialogPrimitive.Title>) => {
+const DialogTitle = ({ className, ...props }: DialogPrimitive.DialogTitleProps) => {
 	return (
 		<div className="flex items-center justify-between">
 			<DialogPrimitive.Title

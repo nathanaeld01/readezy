@@ -4,12 +4,37 @@ import * as React from 'react';
 import { Button } from './button';
 import { cn } from '@/admin/lib/utils';
 import { sheetVariants, SheetVariants } from '@/admin/lib/variants';
+import { ChildrenType } from '@/admin/types';
 
-const Sheet = ({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) => {
-	return <SheetPrimitive.Root data-slot="sheet" {...props} />;
+const Sheet = ({
+	children,
+	onOpenChange: setOpenProp,
+	open: openProp,
+	...props
+}: ChildrenType<{ onClose: () => void; onOpen: () => void; onToggle: () => void }> &
+	Omit<SheetPrimitive.DialogProps, 'children'>) => {
+	const [open, setOpen] = React.useState(openProp);
+
+	const onOpen = () => setOpen(true);
+	const onClose = () => setOpen(false);
+	const onToggle = () => setOpen(prev => !prev);
+
+	return (
+		<SheetPrimitive.Root
+			data-slot="sheet"
+			onOpenChange={v => {
+				setOpenProp?.(v);
+				setOpen(v);
+			}}
+			open={open}
+			{...props}
+		>
+			{typeof children === 'function' ? children({ onClose, onOpen, onToggle }) : children}
+		</SheetPrimitive.Root>
+	);
 };
 
-const SheetTrigger = ({ ...props }: React.ComponentProps<typeof SheetPrimitive.Trigger>) => {
+const SheetTrigger = ({ ...props }: SheetPrimitive.DialogTriggerProps) => {
 	return <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />;
 };
 

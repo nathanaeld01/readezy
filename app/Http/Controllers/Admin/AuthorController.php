@@ -24,7 +24,7 @@ class AuthorController extends Controller {
         // return response()->json($authors->items());
 
         return Inertia::render('author/index', [
-            'authors' => $authors->items(),
+            'authors' => Inertia::defer(fn() => $authors->items()),
             'pagination' => collect($authors)->except('data'),
             'search' => $request->input('search')
         ]);
