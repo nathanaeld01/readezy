@@ -24,6 +24,6 @@ createServer(page =>
 
 			return <App {...props} />;
 		},
-		title: title => `${title} - ${appName}`,
+		title: title => (title ? `${title} | ${appName}` : appName),
 	}),
 );

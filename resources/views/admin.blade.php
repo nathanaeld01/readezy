@@ -15,9 +15,13 @@
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
-        @routes('admin')
+        @if(auth('web')->user())
+            @routes('admin-auth')
+        @else
+            @routes('admin-guest')
+        @endif
         @viteReactRefresh
-        @vite(['resources/admin/admin.css', 'resources/admin/app.tsx', "resources/admin/pages/{$page['component']}.tsx"], 'build/admin')
+        @vite(['resources/admin/app.tsx', "resources/admin/pages/{$page['component']}.tsx"], 'build/admin')
         @inertiaHead
     </head>
     <body class="font-sans antialiased">

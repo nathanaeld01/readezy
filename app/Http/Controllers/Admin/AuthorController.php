@@ -7,7 +7,6 @@ use App\Http\Requests\Author\DestroyRequest;
 use App\Http\Requests\Author\StoreRequest;
 use App\Models\Author;
 use App\Services\AuthorService;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -23,8 +22,8 @@ class AuthorController extends Controller {
         $authors = AuthorService::listAuthors($request->input('search'));
         // return response()->json($authors->items());
 
-        return Inertia::render('author/index', [
-            'authors' => Inertia::defer(fn() => $authors->items()),
+        return Inertia::render('authors/index', [
+            'authors' => $authors->items(),
             'pagination' => collect($authors)->except('data'),
             'search' => $request->input('search')
         ]);

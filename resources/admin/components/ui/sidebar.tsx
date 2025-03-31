@@ -150,7 +150,7 @@ const SidebarMenuItem = ({ children }: SidebarDefaultProps) => {
 
 const SidebarMenuLink = ({ children, href, icon, tooltip }: SidebarLinkProps) => {
 	const { variant } = useSidebar();
-	const active = route().current(href.replace(/index$/, '*'));
+	const active = route()?.current(href.replace(/index$/, '*'));
 
 	const item = (
 		<Link

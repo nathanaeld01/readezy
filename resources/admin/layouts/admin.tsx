@@ -12,13 +12,12 @@ type Props = {
 
 export const AdminLayout = ({ children, className }: Props) => {
 	const { auth } = usePage().props;
-	console.log(auth);
 
 	return (
 		<SidebarProvider variant="compact">
 			<AppSidebar />
 			<div className="grid size-full grid-rows-[auto_1fr_auto]">
-				<Topbar />
+				<Topbar user={auth.user} />
 				<main className={cn('container p-8', className)}>{children}</main>
 				<footer></footer>
 			</div>

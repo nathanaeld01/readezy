@@ -1,3 +1,5 @@
+import './admin.css';
+
 import { createInertiaApp } from '@inertiajs/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios from 'axios';
@@ -21,7 +23,9 @@ axios.interceptors.response.use(
 );
 
 createInertiaApp({
-	progress: false,
+	progress: {
+		color: 'var(--primary)',
+	},
 	resolve: name =>
 		resolvePageComponent(`./pages/${name}.tsx`, import.meta.glob('./pages/**/*.tsx')),
 	setup({ App, el, props }) {

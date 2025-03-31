@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
 
-import { AdminLayout } from '../layouts';
+import { AdminLayout } from '../layouts/admin';
 
 export default function Notifications() {
 	return (

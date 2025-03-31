@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
 
 import { Button } from '@/admin/components/ui/button';
-import { AdminLayout } from '@/admin/layouts';
+import { AdminLayout } from '@/admin/layouts/admin';
 
 export default function Genre() {
 	return (

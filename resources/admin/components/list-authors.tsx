@@ -1,8 +1,8 @@
 import { Deferred, Link, usePage } from '@inertiajs/react';
 import { createColumnHelper, type OnChangeFn, type RowSelectionState } from '@tanstack/react-table';
 
-import { Checkbox } from '../ui/checkbox';
-import { DataTable, DataTableBody, DataTableHeader, DataTableLoading } from '../ui/data-table';
+import { Checkbox } from './ui/checkbox';
+import { DataTable, DataTableBody, DataTableHeader, DataTableLoading } from './ui/data-table';
 import { buttonVariants } from '@/admin/lib/variants';
 
 type Author = {
@@ -81,7 +81,7 @@ const columns = [
 	}),
 ];
 
-export const ViewAuthorsTable = ({
+export const ListAuthors = ({
 	onSelect: setRowSelection,
 	selected: rowSelection,
 }: {

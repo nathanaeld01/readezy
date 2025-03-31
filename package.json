@@ -6,6 +6,8 @@
         "dev:web": "vite --config vite.web.config.js",
         "build:web": "vite build --config vite.web.config.js && vite build --ssr --config vite.web.config.js",
         "build:admin": "vite build --config vite.admin.config.js && vite build --ssr --config vite.admin.config.js",
+        "ssr:web": "node bootstrap/ssr/web/ssr.js",
+        "ssr:admin": "node bootstrap/ssr/admin/ssr.js",
         "build": "tsc && npm run build:web && npm run build:admin",
         "dev": "concurrently \"npm run dev:web\" \"npm run dev:admin\""
     },

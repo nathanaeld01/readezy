@@ -1,6 +1,5 @@
 import { Link } from '@inertiajs/react';
 
-import { Avatar, AvatarImage } from '../ui/avatar';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -30,7 +29,7 @@ const DropdownLink = ({ children, href, icon }: ItemProps) => {
 	);
 };
 
-export const Topbar = () => {
+export const Topbar = ({ user }: { user: { email: string; name: string } }) => {
 	return (
 		<header className="h-16 border-b border-border">
 			<div className="flex h-full items-center justify-between px-8">
@@ -49,19 +48,18 @@ export const Topbar = () => {
 					</Link>
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
-							<Avatar className="size-10">
-								<AvatarImage
-									className="size-10 cursor-pointer"
-									src="https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611765.jpg"
-								/>
-							</Avatar>
+							<img
+								className="size-10 cursor-pointer rounded-full object-cover"
+								role="button"
+								src="https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611765.jpg"
+							/>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end" className="mt-1 min-w-65" side="bottom">
 							<DropdownMenuGroup>
 								<DropdownMenuLabel className="flex flex-col gap-1 leading-none">
-									<span>Nathanael D&apos;Cunha</span>
+									<span>{user.name}</span>
 									<span className="text-xs text-muted-foreground">
-										admin@example.com
+										{user.email}
 									</span>
 								</DropdownMenuLabel>
 							</DropdownMenuGroup>

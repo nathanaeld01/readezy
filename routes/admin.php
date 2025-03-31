@@ -9,9 +9,9 @@ use App\Http\Controllers\Admin\SeriesController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::domain(config('app.domains.admin'))->name('admin.')->group(function () {
+Route::domain(config('app.domains.admin'))->group(function () {
 	// Guest Routes
-	Route::middleware('guest')->group(function () {
+	Route::middleware('guest')->name('admin.')->group(function () {
 		Route::controller(AuthController::class)->group(function () {
 			Route::get('/login', 'index')->name('login');
 			Route::post('/login', 'login');
@@ -19,7 +19,7 @@ Route::domain(config('app.domains.admin'))->name('admin.')->group(function () {
 	});
 
 	// Authenticated Routes
-	Route::middleware('auth')->group(function () {
+	Route::middleware('auth')->name('admin.')->group(function () {
 		// Home Controller Routes
 		Route::controller(HomeController::class)->group(function () {
 			Route::get('/', 'dashboard')->name('dashboard');

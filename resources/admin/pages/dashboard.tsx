@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react';
 
 import { MetricCard } from '../components/dashboard/metric-card';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { AdminLayout } from '../layouts';
+import { AdminLayout } from '../layouts/admin';
 
 export default function Dashboard() {
 	return (
