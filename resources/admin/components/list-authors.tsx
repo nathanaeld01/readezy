@@ -1,8 +1,9 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Deferred, Link, usePage } from '@inertiajs/react';
 import { createColumnHelper, type OnChangeFn, type RowSelectionState } from '@tanstack/react-table';
 
 import { Checkbox } from './ui/checkbox';
-import { DataTable, DataTableBody, DataTableHeader } from './ui/data-table';
+import { DataTable, DataTableBody, DataTableHeader, DataTableLoading } from './ui/data-table';
+import { buttonVariants } from '@/admin/lib/variants';
 
 type Author = {
 	image_url: string;
@@ -58,6 +59,26 @@ const columns = [
 		),
 		header: 'Name',
 	}),
+	columnHelper.display({
+		cell: ({ row }) => (
+			<>
+				<Link
+					className={buttonVariants({
+						className: 'size-8',
+						size: 'icon',
+						variant: 'ghost',
+					})}
+					href={route('admin.authors.edit', row.original.slug)}
+				>
+					<i className="hgi hgi-stroke hgi-edit-02 text-lg" />
+				</Link>
+			</>
+		),
+		id: 'actions',
+		meta: {
+			className: 'w-20',
+		},
+	}),
 ];
 
 export const ListAuthors = ({
@@ -67,7 +88,7 @@ export const ListAuthors = ({
 	onSelect: OnChangeFn<RowSelectionState>;
 	selected: RowSelectionState;
 }) => {
-	const { authors } = usePage().props;
+	const { authors = [] } = usePage().props;
 
 	return (
 		<DataTable
@@ -85,7 +106,9 @@ export const ListAuthors = ({
 			{table => (
 				<>
 					<DataTableHeader table={table} />
-					<DataTableBody table={table} />
+					<Deferred data="authors" fallback={<DataTableLoading table={table} />}>
+						<DataTableBody table={table} />
+					</Deferred>
 				</>
 			)}
 		</DataTable>
