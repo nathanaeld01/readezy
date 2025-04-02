@@ -33,7 +33,6 @@ Route::domain(config('app.domains.admin'))->group(function () {
 		Route::controller(AuthorController::class)->group(function () {
 			Route::get('/authors', 'index')->name('authors.index');
 			Route::get('/authors/{slug}', 'show')->name('authors.show');
-			Route::get('/authors/{slug}/edit', 'edit')->name('authors.edit');
 		});
 
 		// Book Routes
