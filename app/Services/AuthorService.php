@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Author;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +31,7 @@ class AuthorService {
             ['slug' => $slug],
             [
                 'title' => $data['title'],
-                'description' => serialize($data['description']),
+                'description' => implode("\r\n\r\n", $data['description']),
                 'image_url' => 'pending-upload',
                 'nationality' => $data['nationality'],
                 'date_of_birth' => $data['date_of_birth'],
@@ -39,15 +40,31 @@ class AuthorService {
             ]
         );
 
-        if ($author->wasRecentlyCreated) {
+        if ($author->wasRecentlyCreated) 
             $author->update(['image_url' => $data['image']->store('authors', 'public')]);
-        }
 
         return $author;
     }
 
+    public static function updateAuthor(string $slug, array $data): bool {
+        $author = Author::where('slug', $slug)->first();
+
+        if(!empty($data['description'])) {
+            $data['description'] = implode("\r\n\r\n", $data['description']);
+        }
+
+        if(!empty($data['image_url']) && $data['image'] instanceof UploadedFile) {
+            if($author->image_url) 
+                Storage::disk('public')->delete($author->image_url);
+
+            $data['image_url'] = $data['image_url']->store('authors','public');
+        }
+
+        return $author->updateOrFail($data);
+    }
+
     public static function hideAuthors(array $slugs): bool {
-        return (bool) Author::whereIn('slug', $slugs)
+        return Author::whereIn('slug', $slugs)
             ->whereNull('deleted_at')
             ->delete();
     }

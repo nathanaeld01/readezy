@@ -48,7 +48,7 @@ class StoreRequest extends FormRequest {
 
     protected function prepareForValidation(): void {
         $this->merge([
-            'description' => explode("\n", $this->input('description')),
+            'description' => explode("\r\n\r\n", $this->input('description')),
         ]);
     }
 }
