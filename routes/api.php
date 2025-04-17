@@ -12,7 +12,6 @@ Route::domain(config('app.domains.admin'))->group(function () {
     Route::middleware('auth')->group(function () {
         Route::controller(AdminAuthor::class)->group(function () {
             Route::post('/author', 'store');
-            Route::patch('/author/{slug}', 'update');
             Route::delete('/author', 'destroy');
         });
     });
