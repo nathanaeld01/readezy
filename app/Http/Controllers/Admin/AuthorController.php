@@ -73,8 +73,19 @@ class AuthorController extends Controller {
         return response()->json($authorize->message(), 403);
     }
 
-    public function update(UpdateRequest $request): JsonResponse {
-        $data = $request->validated();
-        return response()->json('Successfully updated user');
+    public function update(UpdateRequest $request, string $slug): JsonResponse {
+        $authorize = Gate::inspect('update', Author::class);
+
+        if ($authorize->allowed()) {
+            $data = $request->validated();
+
+            $update = AuthorService::updateAuthor($slug, $data);
+
+            return $update 
+                ? response()->json('Successfully updated user')
+                : response()->json('Failed to update author', 400);
+        }
+
+        return response()->json($authorize->message(), 400);
     }
 }

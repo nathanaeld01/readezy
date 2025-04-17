@@ -19,7 +19,8 @@ export const EditAuthorForm = ({
 	slug: string;
 }) => {
 	const { mutateAsync: editAuthor } = useMutation<EditAuthor, AxiosError, EditAuthor>({
-		mutationFn: async values => await axios.patchForm(`/api/author/${slug}`, values),
+		mutationFn: async values =>
+			await axios.postForm(`/api/author/${slug}`, { ...values, _method: 'PATCH' }),
 		mutationKey: ['edit-author'],
 		onSuccess: () => {
 			router.reload({ only: ['author'] });
@@ -28,22 +29,8 @@ export const EditAuthorForm = ({
 	});
 
 	const { Field, handleSubmit, Subscribe } = useForm({
-		defaultValues: data,
-		onSubmit: async ({ value }) => {
-			type EditAuthorKeys = keyof EditAuthor;
-
-			// Filter out 'image' and cast keys to EditAuthorKeys
-			const dirtyFields = (Object.keys(value) as EditAuthorKeys[])
-				.filter(key => key !== 'image') // Explicitly exclude 'image'
-				.reduce((acc, key) => {
-					if (value[key] !== data[key]) {
-						acc[key] = value[key];
-					}
-					return acc;
-				}, {} as Partial<EditAuthor>);
-
-			return await editAuthor(dirtyFields);
-		},
+		defaultValues: {} as EditAuthor,
+		onSubmit: async ({ value }) => await editAuthor(value),
 		validators: {
 			onSubmit: editAuthorValidator,
 		},
@@ -65,13 +52,26 @@ export const EditAuthorForm = ({
 							id="name"
 							onChange={e => handleChange(e.target.value)}
 							placeholder="Enter author's name"
-							value={state.value}
+							value={state.value ?? data.title}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
 								{state.meta.errors[0]?.message}
 							</p>
 						)}
+					</div>
+				)}
+			</Field>
+			<Field name="image_url">
+				{({ handleChange }) => (
+					<div className="space-y-2">
+						<Label htmlFor="image_url">Image</Label>
+						<Input
+							accept="image/jpg"
+							id="image_url"
+							onChange={e => handleChange(e.target.files?.[0])}
+							type="file"
+						/>
 					</div>
 				)}
 			</Field>
@@ -82,7 +82,7 @@ export const EditAuthorForm = ({
 						<Textarea
 							id="description"
 							onChange={e => handleChange(e.target.value)}
-							value={state.value}
+							value={state.value ?? data.description}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -100,7 +100,7 @@ export const EditAuthorForm = ({
 							id="date_of_birth"
 							onChange={e => handleChange(e.target.value)}
 							type="date"
-							value={state.value}
+							value={state.value ?? data.date_of_birth}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -118,7 +118,7 @@ export const EditAuthorForm = ({
 							id="date_of_death"
 							onChange={e => handleChange(e.target.value)}
 							type="date"
-							value={state.value}
+							value={state.value ?? data.date_of_death}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -135,7 +135,7 @@ export const EditAuthorForm = ({
 						<Input
 							id="nationality"
 							onChange={e => handleChange(e.target.value)}
-							value={state.value}
+							value={state.value ?? data.nationality}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">
@@ -153,7 +153,7 @@ export const EditAuthorForm = ({
 							id="website_url"
 							onChange={e => handleChange(e.target.value)}
 							placeholder="Author Website"
-							value={state.value}
+							value={state.value ?? data.website_url}
 						/>
 						{state.meta.errors && (
 							<p className="text-xs/none text-destructive/70">

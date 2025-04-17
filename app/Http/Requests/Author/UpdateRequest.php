@@ -11,7 +11,7 @@ class UpdateRequest extends FormRequest {
         return [
             'title' => 'sometimes|string|between:3,255',
             'description' => 'sometimes|array|min:1',
-            'image' => 'sometimes|image|mimes:jpg,jpeg,png,webp',
+            'image_url' => 'sometimes|image|mimes:jpg,jpeg,png,webp',
             'date_of_birth' => 'sometimes|date|before:today',
             'date_of_death' => 'sometimes|date|after:date_of_birth|before:today',
             'nationality' => 'sometimes|string|max:100',
@@ -27,8 +27,8 @@ class UpdateRequest extends FormRequest {
             'description.array' => 'Description must be provided as paragraphs.',
             'description.min' => 'Please provide at least :min paragraph.',
 
-            'image.image' => 'The uploaded file must be a valid image.',
-            'image.mimes' => 'Only JPG, JPEG, PNG, and WEBP formats are supported.',
+            'image_url.image' => 'The uploaded file must be a valid image.',
+            'image_url.mimes' => 'Only JPG, JPEG, PNG, and WEBP formats are supported.',
 
             'date_of_birth.date' => 'Please provide a valid date of birth.',
             'date_of_birth.before' => 'Date of birth must be in the past.',

@@ -28,7 +28,7 @@ const authorValidator = z.object({
 		})
 		.min(1, 'Description must not be empty'), // Matches array min:1 after splitting
 
-	image: z
+	image_url: z
 		.instanceof(File, { message: 'Please upload a valid image file.' })
 		.refine(
 			file => ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(file.type),
